@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5391287571032830601}
   - component: {fileID: 4844917580640425592}
   - component: {fileID: 545832117812224682}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock2D
-  m_TagString: Untagged
+  m_TagString: Tiles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1073738817
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300790, guid: 95d22684aba5646d79a26b3287a692b6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -127,3 +127,4 @@ MonoBehaviour:
   tileX: 0
   tileY: 0
   tileMap: {fileID: 0}
+  tileNumber: 2
