@@ -55,23 +55,6 @@ public class TileMap_A : MonoBehaviour
         tiles[12,13] = 1;
     }
 
-    public class Node{
-        public List<Node> edges;
-        public int x;
-        public int y;
-
-        public Node(){
-            edges = new List<Node>();
-        }
-
-        public float DistanceTo(Node node){
-            return Vector2.Distance(
-                new Vector2(x, y),
-                new Vector2(node.x, node.y)
-            );
-        }
-    }
-
     float CostToEnterTile(int sourceX, int sourceY, int targetX, int targetY){
         TileType_A tt = tileTypes[tiles[targetX,targetY]];
         float cost = tt.movementCost;

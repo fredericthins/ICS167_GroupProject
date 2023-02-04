@@ -7,7 +7,7 @@ public class Unit_A : MonoBehaviour
     public int tileX;
     public int tileY;
     public TileMap_A tilemap;
-    public List<TileMap_A.Node> currentPath = null;
+    public List<Node> currentPath = null;
     public float smoothTime = 0.1f;
     private Vector3 velocity = Vector3.zero;
     bool isMoving;
@@ -38,8 +38,8 @@ public class Unit_A : MonoBehaviour
     }
 
     IEnumerator SmoothWalk(){
-        TileMap_A.Node end = currentPath[1];
-        TileMap_A.Node start = currentPath[0];
+        Node end = currentPath[1];
+        Node start = currentPath[0];
 
         Vector3 endCoord = tilemap.TileCoordToWorldCoord(end.x,end.y);
 
