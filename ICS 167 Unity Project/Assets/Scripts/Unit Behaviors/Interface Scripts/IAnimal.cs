@@ -5,6 +5,6 @@ using UnityEngine;
 public interface IAnimal : ISelectable
 {
     // Returns its value to the player that harvests it
-    int harvest();
+    public int harvest();
 
 }
