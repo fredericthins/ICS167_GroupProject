@@ -2,15 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimalInstance : MonoBehaviour, IAnimal
+public class Cow : ResourceInstance
 {
-    public bool isSelected { get; set; }
-
-    public int harvest()
-    {
-        throw new System.NotImplementedException();
-    }
-
     // Start is called before the first frame update
     void Start()
     {
