@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ITroop : ISelectable
+public interface ITroop
 {
     // Troop Stats
     int healthPoints {get; set;}
@@ -17,6 +17,6 @@ public interface ITroop : ISelectable
 
     void useTarget(); // Uses the target (harvests animals/crop/ other resource). Might need to change this method depdending on implementation.
 
-    void move(int x, int y); // Moves troop in int-based direction (Probably needs to be changed when tile map is developed)
+    void move(int x, int z); // Moves troop in int-based direction
 
 }
