@@ -2,22 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TroopInstance : MonoBehaviour, ITroop
+public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 {
-    public int healthPoints { get; set; }
-    public int damageStat { get; set; }
-    public ISelectable currentTarget { get; set; }
-    public bool isAlive { get; set; }
-    public bool isSelected { get; set; }
-
-
-    private void Initialize(int hp, int damage) // Initialize will be useful if we use a Scriptable Object for troop types
-    {
-        healthPoints = hp;
-        damageStat = damage;
-        isAlive = true;
-    }
-
+    public int healthPoints { get; set; } // A troop's remaining healthpoints
+    public int damageStat { get; set; } // How much damage a troop can do
+    public ISelectable currentTarget { get; set; } // Troop's current target
+    public bool isAlive { get; set; } // Is troop alive
+    public bool isSelected { get; set; } // Is troop selected
+    public int value { get; set; } // Gold cost of troop
 
     public void attackTarget()
     {
@@ -26,17 +18,31 @@ public class TroopInstance : MonoBehaviour, ITroop
 
     public int getValue(ISelectable selected_unit)
     {
-        throw new System.NotImplementedException();
+        return value;
     }
 
-    public void move(int x, int y)
+    public void move(int x, int z)
     {
-        throw new System.NotImplementedException();
+        Vector3 troopPosition = transform.position;
+        troopPosition += new Vector3(x, 0, z);
+        transform.position = troopPosition;
     }
 
-    public void select(ISelectable selected_unit)
+    public void select()
     {
-        throw new System.NotImplementedException();
+        TroopInstance[] troops = FindObjectsOfType(typeof(TroopInstance)) as TroopInstance[];
+        for (int i = 0; i < troops.Length; i++)
+        {
+            troops[i].unselect();
+        }
+
+        isSelected = true; ;
+    }
+
+    public void unselect()
+    {
+        if (isSelected == true) Debug.Log(gameObject + " was unselected");
+        isSelected = false;
     }
 
     public void selectTarget(ISelectable current_target)
