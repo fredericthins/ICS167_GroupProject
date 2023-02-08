@@ -5,11 +5,8 @@ using UnityEngine;
 public class TroopManager : MonoBehaviour
 {
     List<TroopInstance> troopList;
-
-    private void Start()
-    {
-        
+    //Spawn troop prefab
+    public void SpawnTroop(Vector3 position, GameObject troop){
+        Instantiate(troop, position, Quaternion.identity);
     }
-
-
 }

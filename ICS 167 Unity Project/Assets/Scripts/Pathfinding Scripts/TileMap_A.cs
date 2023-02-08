@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Text;
 
 public class TileMap_A : MonoBehaviour
 {
@@ -16,43 +17,72 @@ public class TileMap_A : MonoBehaviour
     Node[,] graph;
     List<Node> currentPath;
 
+    [SerializeField] Transform readStartPoint;
+    [SerializeField] LayerMask tileLayerMask;
     void Start(){
         selectedTarget.GetComponent<Unit_A>().tileX = (int)selectedTarget.transform.position.x;
         selectedTarget.GetComponent<Unit_A>().tileY = (int)selectedTarget.transform.position.y;
         selectedTarget.GetComponent<Unit_A>().tilemap = this;
         tiles = new int[mapSizeX, mapSizeY];
 
-        GenerateMapData();
+        //GenerateMapData();
+        ReadMapData();
         GeneratePathfindingGraph();
-        GenerateMapVisual();
+        //GenerateMapVisual();
     }
 
-    void GenerateMapData(){
+    // void GenerateMapData(){
+    //     for(int x = 0; x < mapSizeX; x++){
+    //         for(int y = 0; y < mapSizeY; y++){
+    //             //Default set up is full grass
+    //             tiles[x,y] = 0;
+    //         }
+    //     }
+
+    //     tiles[4,4] = 2;
+    //     tiles[4,5] = 2;
+    //     tiles[4,6] = 2;
+    //     tiles[4,7] = 2;
+    //     tiles[5,7] = 2;
+    //     tiles[5,8] = 2;
+    //     tiles[5,9] = 2;
+    //     tiles[5,10] = 2;
+    //     tiles[4,5] = 2;
+
+    //     tiles[10,10] = 1;
+    //     tiles[10,11] = 1;
+    //     tiles[11,11] = 1;
+    //     tiles[12,12] = 1;
+    //     tiles[12,11] = 1;
+    //     tiles[11,12] = 1;
+    //     tiles[13,12] = 1;
+    //     tiles[12,13] = 1;
+    // }
+    void ReadMapData(){
         for(int x = 0; x < mapSizeX; x++){
             for(int y = 0; y < mapSizeY; y++){
-                //Default set up is full grass
-                tiles[x,y] = 0;
+                Vector3 blockPosition = readStartPoint.position + new Vector3(x, y, 0f);
+                RaycastHit2D hit = Physics2D.Raycast(blockPosition, blockPosition, 0.01f, tileLayerMask);
+                if(hit.collider != null){
+                    InteractableTile_A it_A = hit.collider.gameObject.GetComponent<InteractableTile_A>();
+                    if(it_A != null){
+                        tiles[x, y] = it_A.tileNumber;
+                        it_A.tileX = x;
+                        it_A.tileY = y;
+                        it_A.tileMap = this;
+                    }
+                }
             }
         }
-
-        tiles[4,4] = 2;
-        tiles[4,5] = 2;
-        tiles[4,6] = 2;
-        tiles[4,7] = 2;
-        tiles[5,7] = 2;
-        tiles[5,8] = 2;
-        tiles[5,9] = 2;
-        tiles[5,10] = 2;
-        tiles[4,5] = 2;
-
-        tiles[10,10] = 1;
-        tiles[10,11] = 1;
-        tiles[11,11] = 1;
-        tiles[12,12] = 1;
-        tiles[12,11] = 1;
-        tiles[11,12] = 1;
-        tiles[13,12] = 1;
-        tiles[12,13] = 1;
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i< tiles.GetLength(1); i++){
+            for(int j=0; j< tiles.GetLength(0); j++){
+                sb.Append(tiles[i,j]);
+                sb.Append(' ');                
+            }
+            sb.AppendLine();
+        }
+        Debug.Log(sb.ToString());
     }
 
     float CostToEnterTile(int sourceX, int sourceY, int targetX, int targetY){

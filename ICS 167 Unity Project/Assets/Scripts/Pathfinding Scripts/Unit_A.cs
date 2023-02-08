@@ -10,7 +10,7 @@ public class Unit_A : MonoBehaviour
     public List<Node> currentPath = null;
     public float smoothTime = 0.1f;
     private Vector3 velocity = Vector3.zero;
-    bool isMoving;
+    public bool isMoving;
 
     void Update(){
         if(currentPath != null){
@@ -34,10 +34,16 @@ public class Unit_A : MonoBehaviour
             return;
         }
 
-        StartCoroutine(SmoothWalk());
+        
+        if(!isMoving){
+            StartCoroutine(SmoothWalk());
+        }
+        
     }
 
     IEnumerator SmoothWalk(){
+        isMoving = true;
+
         Node end = currentPath[1];
         Node start = currentPath[0];
 
@@ -58,6 +64,7 @@ public class Unit_A : MonoBehaviour
         if(currentPath.Count == 1){
             tileX = currentPath[0].x;
             tileY = currentPath[0].y;
+            isMoving = false;
             currentPath = null;
         }
     }
