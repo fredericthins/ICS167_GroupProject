@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Swordsman : TroopInstance
+public class Calvary : TroopInstance
 {
     int movementSpeed = 10;
 
     // Start is called before the first frame update
     void Start()
     {
-        healthPoints = 10;
-        damageStat = 3;
+        healthPoints = 15;
+        damageStat = 4;
         isAlive = true;
         isSelected = false;
-        troopCost = 50;
+        troopCost = 80;
         attRange = 1;
-        moveRange = 4;
+        moveRange = 5;
     }
 
     // Update is called once per frame
@@ -54,9 +54,9 @@ public class Swordsman : TroopInstance
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform ==  gameObject.transform)
+                if (hit.transform == gameObject.transform)
                 {
-                    Debug.Log("Swordsman was selected");
+                    Debug.Log("Calvary was selected");
                     select();
                 }
             }

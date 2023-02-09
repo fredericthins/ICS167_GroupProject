@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Swordsman : TroopInstance
+public class Scout : TroopInstance
 {
     int movementSpeed = 10;
 
@@ -10,12 +10,12 @@ public class Swordsman : TroopInstance
     void Start()
     {
         healthPoints = 10;
-        damageStat = 3;
+        damageStat = 1;
         isAlive = true;
         isSelected = false;
-        troopCost = 50;
+        troopCost = 30;
         attRange = 1;
-        moveRange = 4;
+        moveRange = 6;
     }
 
     // Update is called once per frame
@@ -54,9 +54,9 @@ public class Swordsman : TroopInstance
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform ==  gameObject.transform)
+                if (hit.transform == gameObject.transform)
                 {
-                    Debug.Log("Swordsman was selected");
+                    Debug.Log("Scout was selected");
                     select();
                 }
             }
