@@ -13,53 +13,26 @@ public class Scout : TroopInstance
         damageStat = 1;
         isAlive = true;
         isSelected = false;
-        troopCost = 30;
-        attRange = 1;
-        moveRange = 6;
+        value = 30;
+        attackRange = 1;
+        stepsPerMove = 6;
     }
 
     // Update is called once per frame
     void Update()
     {
-        checkClicked();
-        if (isSelected) moveCheck();
-    }
+        checkClicked(); // If the troop is clicked then isSelected becomes true
+        if (isSelected)
+        {
+            moveCheck(); // If a troop is selected, then it can move if the user inputs a movement key (WASD)
+            selectTarget(); // Checks if the user right clicks an enemy
 
-    private void moveCheck()
-    {
-        if (Input.GetKeyDown("w"))
-        {
-            move(0, movementSpeed);
-        }
-        if (Input.GetKeyDown("a"))
-        {
-            move(-movementSpeed, 0);
-        }
-        if (Input.GetKeyDown("s"))
-        {
-            move(0, -movementSpeed);
-        }
-        if (Input.GetKeyDown("d"))
-        {
-            move(movementSpeed, 0);
-        }
-    }
-
-    private void checkClicked() // Detects if a troop is clicked on by the user
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
+            if (currentTarget != null && Input.GetKeyDown("space"))
             {
-                if (hit.transform == gameObject.transform)
-                {
-                    Debug.Log("Scout was selected");
-                    select();
-                }
+                //Debug.Log("space key was pressed");
+                interactTarget();
             }
         }
     }
+
 }

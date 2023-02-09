@@ -6,8 +6,8 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 {
     public int healthPoints { get; set; } // A troop's remaining healthpoints
     public int damageStat { get; set; } // How much damage a troop can do
-    //public TroopInstance enemyTarget { get; set; } // Troop's current target
-    //public ResourceInstance resourceTarget { get; set; }
+    public int attackRange { get; set; }
+    public int stepsPerMove { get; set; }
     public GameObject currentTarget;
     public bool isAlive { get; set; } // Is troop alive
     public bool isSelected { get; set; } // Is troop selected
