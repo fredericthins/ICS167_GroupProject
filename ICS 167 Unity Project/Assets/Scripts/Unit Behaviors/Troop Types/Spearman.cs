@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Spearman : TroopInstance
 {
-    int movementSpeed = 10;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -13,53 +11,25 @@ public class Spearman : TroopInstance
         damageStat = 3;
         isAlive = true;
         isSelected = false;
-        troopCost = 40;
-        attRange = 2;
-        moveRange = 3;
-        
+        value = 40;
+        attackRange = 2;
+        stepsLimit = 3;
+        currentTarget = null;
     }
 
     // Update is called once per frame
     void Update()
     {
-        checkClicked();
-        if (isSelected) moveCheck();
-    }
+        checkClicked(); // If the troop is clicked then isSelected becomes true
+        if (isSelected)
+        {
+            moveCheck(); // If a troop is selected, then it can move if the user inputs a movement key (WASD)
+            selectTarget(); // Checks if the user right clicks an enemy
 
-    private void moveCheck()
-    {
-        if (Input.GetKeyDown("w"))
-        {
-            move(0, movementSpeed);
-        }
-        if (Input.GetKeyDown("a"))
-        {
-            move(-movementSpeed, 0);
-        }
-        if (Input.GetKeyDown("s"))
-        {
-            move(0, -movementSpeed);
-        }
-        if (Input.GetKeyDown("d"))
-        {
-            move(movementSpeed, 0);
-        }
-    }
-
-    private void checkClicked() // Detects if a troop is clicked on by the user
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
+            if (currentTarget != null && Input.GetKeyDown("space"))
             {
-                if (hit.transform == gameObject.transform)
-                {
-                    Debug.Log("Spearman was selected");
-                    select();
-                }
+                //Debug.Log("space key was pressed");
+                interactTarget();
             }
         }
     }

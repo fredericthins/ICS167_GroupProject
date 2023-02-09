@@ -6,30 +6,44 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 {
     public int healthPoints { get; set; } // A troop's remaining healthpoints
     public int damageStat { get; set; } // How much damage a troop can do
-    public ISelectable currentTarget { get; set; } // Troop's current target
+    public int attackRange { get; set; }
+    public int stepsLimit { get; set; } // How many times a troop can move
+    public GameObject currentTarget;
     public bool isAlive { get; set; } // Is troop alive
     public bool isSelected { get; set; } // Is troop selected
-    public int troopCost { get; set; } // Gold cost of troop
-    public int attRange { get; set; } // Attack range (based on tile units)
-    public int moveRange { get; set; } // Movement range (based on tile units)
+    public int value { get; set; } // Gold cost of troop
 
-    public void attackTarget()
+    public int stepDistance = 10; // Each step that a troop needs to take in the Unity grid system is 10 units (in the x or z direction)
+
+    public int getValue()
     {
-        throw new System.NotImplementedException();
+        return value;
     }
 
-    public int getValue(ISelectable selected_unit)
+    public void moveCheck() // Gets movement input and moves troop
     {
-        return troopCost;
+        if (Input.GetKeyDown("w"))
+        {
+            move(0, stepDistance);
+        }
+        if (Input.GetKeyDown("a"))
+        {
+            move(-stepDistance, 0);
+        }
+        if (Input.GetKeyDown("s"))
+        {
+            move(0, -stepDistance);
+        }
+        if (Input.GetKeyDown("d"))
+        {
+            move(stepDistance, 0);
+        }
     }
 
-    //public void move(int x, int z)
-    public void move(int x, int y)
+    public void move(int x, int z)
     {
-        //Vector3 troopPosition = transform.position;
-        Vector2 troopPosition = transform.position;
-        //troopPosition += new Vector3(x, 0, z);
-        troopPosition += new Vector2(x, y);
+        Vector3 troopPosition = transform.position;
+        troopPosition += new Vector3(x, 0, z);
         transform.position = troopPosition;
     }
 
@@ -40,8 +54,26 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         {
             troops[i].unselect();
         }
-
+        currentTarget = null;
         isSelected = true; ;
+    }
+
+    public void checkClicked() // Detects if a troop is clicked on by the user
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform == gameObject.transform)
+                {
+                    Debug.Log(gameObject.name + " was selected");
+                    select();
+                }
+            }
+        }
     }
 
     public void unselect()
@@ -50,12 +82,47 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         isSelected = false;
     }
 
-    public void selectTarget(ISelectable current_target)
+    public void selectTarget()
     {
-        throw new System.NotImplementedException();
+        if (Input.GetMouseButtonDown(1)) // Check if user right clicks on target
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.GetComponent<Player>().player != gameObject.GetComponent<Player>().player)
+                {
+                    currentTarget = hit.transform.gameObject;
+
+                    Debug.Log("Enemy: " + currentTarget.name + " was selected");
+                }
+            }
+        }
     }
 
-    public void useTarget()
+    public void interactTarget()
+    {
+        if (currentTarget.tag == "Troop")
+        {
+            Debug.Log("Enemy " + currentTarget.name  + " HP is " + currentTarget.GetComponent<TroopInstance>().healthPoints);
+            attackTarget();
+        }
+        else if (currentTarget.tag == "Resource")
+        {
+            useTarget();
+        }
+    }
+
+    private void attackTarget()
+    {
+        TroopInstance enemy = currentTarget.GetComponent<TroopInstance>();
+
+        enemy.healthPoints -= damageStat;
+        Debug.Log("Enemy" + currentTarget.name + " HP after attack: " + enemy.healthPoints);
+    }
+
+    private void useTarget()
     {
         throw new System.NotImplementedException();
     }

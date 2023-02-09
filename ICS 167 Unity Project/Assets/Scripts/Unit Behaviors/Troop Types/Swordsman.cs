@@ -4,62 +4,28 @@ using UnityEngine;
 
 public class Swordsman : TroopInstance
 {
-    int movementSpeed = 10;
-
-    // Start is called before the first frame update
     void Start()
     {
         healthPoints = 10;
-        damageStat = 3;
+        damageStat = 5;
         isAlive = true;
         isSelected = false;
-        troopCost = 50;
-        attRange = 1;
-        moveRange = 4;
+        currentTarget = null;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        checkClicked();
-        if (isSelected) moveCheck();
-    }
-
-    private void moveCheck()
-    {
-        if (Input.GetKeyDown("w"))
+        checkClicked(); // If the troop is clicked then isSelected becomes true
+        if (isSelected)
         {
-            move(0, movementSpeed);
-        }
-        if (Input.GetKeyDown("a"))
-        {
-            move(-movementSpeed, 0);
-        }
-        if (Input.GetKeyDown("s"))
-        {
-            move(0, -movementSpeed);
-        }
-        if (Input.GetKeyDown("d"))
-        {
-            move(movementSpeed, 0);
-        }
-    }
-
-    private void checkClicked() // Detects if a troop is clicked on by the user
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
+            moveCheck(); // If a troop is selected, then it can move if the user inputs a movement key (WASD)
+            selectTarget(); // Checks if the user right clicks an enemy
+            
+            if (currentTarget != null && Input.GetKeyDown("space"))
             {
-                if (hit.transform ==  gameObject.transform)
-                {
-                    Debug.Log("Swordsman was selected");
-                    select();
-                }
-            }
+                //Debug.Log("space key was pressed");
+                interactTarget();
+            }    
         }
     }
 }
