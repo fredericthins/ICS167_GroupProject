@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Spearman : TroopInstance
 {
-    int movementSpeed = 10;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +13,8 @@ public class Spearman : TroopInstance
         isSelected = false;
         value = 40;
         attackRange = 2;
-        stepsPerMove = 3;
+        stepsLimit = 3;
+        currentTarget = null;
     }
 
     // Update is called once per frame

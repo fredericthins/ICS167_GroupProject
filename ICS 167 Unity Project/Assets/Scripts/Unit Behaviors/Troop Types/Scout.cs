@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Scout : TroopInstance
 {
-    int movementSpeed = 10;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +13,8 @@ public class Scout : TroopInstance
         isSelected = false;
         value = 30;
         attackRange = 1;
-        stepsPerMove = 6;
+        stepsLimit = 6;
+        currentTarget = null;
     }
 
     // Update is called once per frame

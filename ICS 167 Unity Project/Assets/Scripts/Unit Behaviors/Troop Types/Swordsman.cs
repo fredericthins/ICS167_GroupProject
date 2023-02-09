@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Swordsman : TroopInstance
 {
-    // Start is called before the first frame update
     void Start()
     {
         healthPoints = 10;
@@ -14,7 +13,6 @@ public class Swordsman : TroopInstance
         currentTarget = null;
     }
 
-    // Update is called once per frame
     void Update()
     {
         checkClicked(); // If the troop is clicked then isSelected becomes true

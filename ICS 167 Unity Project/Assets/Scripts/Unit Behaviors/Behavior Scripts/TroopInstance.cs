@@ -7,7 +7,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     public int healthPoints { get; set; } // A troop's remaining healthpoints
     public int damageStat { get; set; } // How much damage a troop can do
     public int attackRange { get; set; }
-    public int stepsPerMove { get; set; }
+    public int stepsLimit { get; set; } // How many times a troop can move
     public GameObject currentTarget;
     public bool isAlive { get; set; } // Is troop alive
     public bool isSelected { get; set; } // Is troop selected
@@ -107,6 +107,10 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         {
             Debug.Log("Enemy " + currentTarget.name  + " HP is " + currentTarget.GetComponent<TroopInstance>().healthPoints);
             attackTarget();
+        }
+        else if (currentTarget.tag == "Resource")
+        {
+            useTarget();
         }
     }
 

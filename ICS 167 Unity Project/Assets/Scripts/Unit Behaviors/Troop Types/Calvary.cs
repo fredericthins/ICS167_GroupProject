@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Calvary : TroopInstance
 {
-    int movementSpeed = 10;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +13,8 @@ public class Calvary : TroopInstance
         isSelected = false;
         value = 80;
         attackRange = 1;
-        stepsPerMove = 5;
+        stepsLimit = 5;
+        currentTarget = null;
     }
 
     // Update is called once per frame
