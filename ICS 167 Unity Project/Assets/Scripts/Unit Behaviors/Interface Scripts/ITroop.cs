@@ -9,13 +9,9 @@ public interface ITroop
     int damageStat {get; set;}
 
     // Target Choosing
-    ISelectable currentTarget {get; set;}
+    void selectTarget(); // Select entity (troop or resource)
 
-    void selectTarget(ISelectable currentTarget);
-
-    void attackTarget(); // Attacks the selected target
-
-    void useTarget(); // Uses the target (harvests animals/crop/ other resource). Might need to change this method depdending on implementation.
+    void interactTarget(); // Attacks enemy target or uses resource target
 
     void move(int x, int z); // Moves troop in int-based direction
 
