@@ -239,6 +239,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -730414569784986909, guid: 4d01b1372b1d1ea4ba0280525520fd2c, type: 3}
+      propertyPath: player
+      value: Player 1
+      objectReference: {fileID: 0}
     - target: {fileID: 802874252253942572, guid: 4d01b1372b1d1ea4ba0280525520fd2c, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -2516,6 +2520,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scout
       objectReference: {fileID: 0}
+    - target: {fileID: 7171285840485399632, guid: c63c2be3637201f489996b2a5b60969e, type: 3}
+      propertyPath: player
+      value: Player 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c63c2be3637201f489996b2a5b60969e, type: 3}
 --- !u!1 &1251623741
@@ -2609,6 +2617,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2229383035824736310, guid: 9c0e3bd0ed9e78f42b72a5438b34f8eb, type: 3}
+      propertyPath: player
+      value: Player 1
+      objectReference: {fileID: 0}
     - target: {fileID: 802874252253942572, guid: 9c0e3bd0ed9e78f42b72a5438b34f8eb, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -2943,6 +2955,10 @@ PrefabInstance:
     - target: {fileID: 802874252253942575, guid: 8fd10e4675b9cd7429a3b5262b3eb8eb, type: 3}
       propertyPath: m_Name
       value: Spearman
+      objectReference: {fileID: 0}
+    - target: {fileID: 8588937459555746292, guid: 8fd10e4675b9cd7429a3b5262b3eb8eb, type: 3}
+      propertyPath: player
+      value: Player 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fd10e4675b9cd7429a3b5262b3eb8eb, type: 3}
