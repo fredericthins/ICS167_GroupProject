@@ -7,17 +7,19 @@ public class Spearman : TroopInstance
     // Start is called before the first frame update
     void Start()
     {
-        healthPoints = 7;
-        damageStat = 3;
-        isAlive = true;
-        isSelected = false;
-        value = 40;
-        attackRange = 2;
-        stepsLimit = 3;
-        currentTarget = null;
+        // Troop Stats
+        healthPoints = 7; // Spearman HP
+        damageStat = 3; // Spearman attack damage
+        value = 40; // Spearman gold cost
+        attackRange = 2; // Spearman attack range
+        stepsLimit = 3; // Total allowed moves per turn
+
+        // Troop Conditions
+        isAlive = true; // Spearman is alive when first spawned
+        isSelected = false; // Spearman is not selected when first spawned
+        currentTarget = null; // Spearman has no target when first spawned
     }
 
-    // Update is called once per frame
     void Update()
     {
         checkClicked(); // If the troop is clicked then isSelected becomes true

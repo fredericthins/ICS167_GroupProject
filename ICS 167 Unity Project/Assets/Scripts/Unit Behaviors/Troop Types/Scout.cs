@@ -7,14 +7,17 @@ public class Scout : TroopInstance
     // Start is called before the first frame update
     void Start()
     {
-        healthPoints = 10;
-        damageStat = 1;
-        isAlive = true;
-        isSelected = false;
-        value = 30;
-        attackRange = 1;
-        stepsLimit = 6;
-        currentTarget = null;
+        // Troop Stats
+        healthPoints = 10; // Scout HP
+        damageStat = 1; // Scout attack damage
+        value = 30; // Scout gold cost
+        attackRange = 1; // Scout attack range
+        stepsLimit = 6; // Total allowed moves per turn
+
+        // Troop Conditions
+        isAlive = true; // Scout is alive when first spawned
+        isSelected = false; // Scout is not selected when first spawned
+        currentTarget = null; // Scout has no target when first spawned
     }
 
     // Update is called once per frame
