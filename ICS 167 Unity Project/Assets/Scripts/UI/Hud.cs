@@ -10,16 +10,17 @@ public class Hud : MonoBehaviour
     public string TroopName = "Troop Name";
     //public int HealthPoints = 10;
     //public int troopCost = 50;
-    //public TextMeshProUGUI testText;
+    public TextMeshProUGUI testText;
     // Start is called before the first frame update
     void Start()
     {
-        //testText.text = TroopName;
+        testText = FindObjectOfType<TextMeshProUGUI>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //testText.text = TroopName;
+        testText.text = TroopName;
     }
 }
