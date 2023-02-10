@@ -7,14 +7,17 @@ public class Archer : TroopInstance
     // Start is called before the first frame update
     void Start()
     {
-        healthPoints = 7;
-        damageStat = 3;
-        isAlive = true;
-        isSelected = false;
-        value = 55;
-        attackRange = 6;
-        stepsLimit = 3;
-        currentTarget = null;
+        // Troop Stats
+        healthPoints = 7; // Archer HP
+        damageStat = 3; // Archer attack damage
+        value = 55; // Archer gold cost
+        attackRange = 6; // Archer attack range
+        stepsLimit = 3; // Total allowed moves per turn
+
+        // Troop Conditions
+        isAlive = true; // Archer is alive when first spawned
+        isSelected = false; // Archer is not selected when first spawned
+        currentTarget = null; // Archer has no target when first spawned
     }
 
     // Update is called once per frame

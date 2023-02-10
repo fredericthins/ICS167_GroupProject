@@ -6,11 +6,17 @@ public class Swordsman : TroopInstance
 {
     void Start()
     {
-        healthPoints = 10;
-        damageStat = 5;
-        isAlive = true;
-        isSelected = false;
-        currentTarget = null;
+        // Troop Stats
+        healthPoints = 10; // Swordsman HP
+        damageStat = 5; // Swordsman attack damage
+        value = 20; // Swordsman gold cost
+        attackRange = 1; // Swordsman attack range
+        stepsLimit = 3; // Total moves allowed per turn
+
+        // Troop Conditions
+        isAlive = true; // Swordsman is alive when first spawned
+        isSelected = false; // Swordsman is not selected when first spawned
+        currentTarget = null; // Swordsman has no target when first spawned
     }
 
     void Update()
