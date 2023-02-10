@@ -11,6 +11,7 @@ public class Swordsman : TroopInstance
         isAlive = true;
         isSelected = false;
         currentTarget = null;
+        attackRange = 1;
     }
 
     void Update()

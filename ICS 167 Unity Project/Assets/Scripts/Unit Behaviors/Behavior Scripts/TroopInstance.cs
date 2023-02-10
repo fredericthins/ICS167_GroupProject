@@ -105,8 +105,12 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     {
         if (currentTarget.tag == "Troop")
         {
-            Debug.Log("Enemy " + currentTarget.name  + " HP is " + currentTarget.GetComponent<TroopInstance>().healthPoints);
-            attackTarget();
+            if ((currentTarget.transform.position.x <= gameObject.transform.position.x + (attackRange * stepDistance) || (currentTarget.transform.position.x <= gameObject.transform.position.x + (attackRange * stepDistance))))
+            {
+                Debug.Log("Enemy in range: " + currentTarget.name + " HP is " + currentTarget.GetComponent<TroopInstance>().healthPoints);
+                attackTarget();
+            }
+            else Debug.Log("Enemy not in range: " + currentTarget.name + " HP is " + currentTarget.GetComponent<TroopInstance>().healthPoints);
         }
         else if (currentTarget.tag == "Resource")
         {
