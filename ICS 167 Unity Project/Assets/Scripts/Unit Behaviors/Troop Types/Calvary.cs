@@ -7,17 +7,19 @@ public class Calvary : TroopInstance
     // Start is called before the first frame update
     void Start()
     {
-        healthPoints = 15;
-        damageStat = 4;
-        isAlive = true;
-        isSelected = false;
-        value = 80;
-        attackRange = 1;
-        stepsLimit = 5;
-        currentTarget = null;
+        // Troop Stats
+        healthPoints = 15; // Cavalry HP
+        damageStat = 4; // Cavalry attack damage
+        value = 80; // Cavalry gold cost
+        attackRange = 1; // Cavalry attack range
+        stepsLimit = 5; // Total allowed moves per turn
+
+        // Troop Conditions
+        isAlive = true; // Cavalry is alive when first spawned
+        isSelected = false; // Cavalry is not selected when first spawned
+        currentTarget = null; // Cavalry has no target when first spawned
     }
 
-    // Update is called once per frame
     void Update()
     {
         checkClicked(); // If the troop is clicked then isSelected becomes true

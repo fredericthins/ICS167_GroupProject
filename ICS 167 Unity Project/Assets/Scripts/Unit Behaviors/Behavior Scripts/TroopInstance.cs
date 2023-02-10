@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 {
+    // Troop Stats
     public int healthPoints { get; set; } // A troop's remaining healthpoints
     public int damageStat { get; set; } // How much damage a troop can do
     public int attackRange { get; set; }
+    public int value { get; set; } // Gold cost of troop
     public int stepsLimit { get; set; } // How many times a troop can move
-    public GameObject currentTarget;
+    public int stepDistance = 10; // Each step that a troop needs to take in the Unity grid system is 10 units (in the x or z direction)
+
+    // Troop Conditions
+    protected GameObject currentTarget;
     public bool isAlive { get; set; } // Is troop alive
     public bool isSelected { get; set; } // Is troop selected
-    public int value { get; set; } // Gold cost of troop
 
-    public int stepDistance = 10; // Each step that a troop needs to take in the Unity grid system is 10 units (in the x or z direction)
+    // Bounds variables will likely need to be changed in future builds to support different map sizes
+    private float horizontalBounds = 110f; // Troops should not be able to move past this distance horizontally (negative or positive)
+    private float VerticalBounds = 50f; // Troops should not be able to move past this distance vertically (negative or positive)
 
     public int getValue()
     {
@@ -40,14 +46,35 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         }
     }
 
-    public void move(int x, int z)
+    public void move(int x, int z) // Performs the move calculation and boundary check
     {
         Vector3 troopPosition = transform.position;
         troopPosition += new Vector3(x, 0, z);
-        transform.position = troopPosition;
+
+        if (Mathf.Abs(troopPosition.x) < horizontalBounds && Mathf.Abs(troopPosition.z) < VerticalBounds) // Boundary Check
+        {
+            // Check if troop is occupying space
+            bool tileBlocked = false;
+
+            TroopInstance[] troops = FindObjectsOfType(typeof(TroopInstance)) as TroopInstance[];
+            
+            for (int i = 0; i < troops.Length; i++)
+            {
+                print(troops[i]);
+                if (troops[i].transform.position.x == troopPosition.x && troops[i].transform.position.z == troopPosition.z)
+                {
+                    tileBlocked = true;
+                }
+            }
+
+            if (tileBlocked == false) transform.position = troopPosition;
+        }
+        else Debug.Log("Boundaries checked and enforced");
+
+        // Steps limit will be implemented when the turn system is implemented in future builds
     }
 
-    public void select()
+    public void select() // Selects troop and unselects all other troops
     {
         TroopInstance[] troops = FindObjectsOfType(typeof(TroopInstance)) as TroopInstance[];
         for (int i = 0; i < troops.Length; i++)
@@ -58,7 +85,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         isSelected = true; ;
     }
 
-    public void checkClicked() // Detects if a troop is clicked on by the user
+    public void checkClicked() // Detects if a troop is clicked on by the user and selects clicked troop (if any)
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -69,20 +96,23 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
             {
                 if (hit.transform == gameObject.transform)
                 {
-                    Debug.Log(gameObject.name + " was selected");
-                    select();
+                    if(hit.transform.GetComponent<Player>().player != "Player 2") // NOTE!: This statement needs to change for future builds (currently only supports 1 player).
+                    {
+                        Debug.Log(gameObject.name + " was selected");
+                        select();
+                    }
                 }
             }
         }
     }
 
-    public void unselect()
+    public void unselect() // Unselects troop
     {
         if (isSelected == true) Debug.Log(gameObject + " was unselected");
         isSelected = false;
     }
 
-    public void selectTarget()
+    public void selectTarget() // Selects target (enemy troop or resource)
     {
         if (Input.GetMouseButtonDown(1)) // Check if user right clicks on target
         {
@@ -101,12 +131,16 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         }
     }
 
-    public void interactTarget()
+    public void interactTarget() // Troop interacts with the target (attacks enemy or harvests resource)
     {
         if (currentTarget.tag == "Troop")
         {
-            Debug.Log("Enemy " + currentTarget.name  + " HP is " + currentTarget.GetComponent<TroopInstance>().healthPoints);
-            attackTarget();
+            if ((currentTarget.transform.position.x <= gameObject.transform.position.x + (attackRange * stepDistance) && (currentTarget.transform.position.z <= gameObject.transform.position.z + (attackRange * stepDistance))))
+            {
+                Debug.Log("Enemy in range: " + currentTarget.name + " HP is " + currentTarget.GetComponent<TroopInstance>().healthPoints);
+                attackTarget();
+            }
+            else Debug.Log("Enemy not in range: " + currentTarget.name + " HP is " + currentTarget.GetComponent<TroopInstance>().healthPoints);
         }
         else if (currentTarget.tag == "Resource")
         {
@@ -114,7 +148,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         }
     }
 
-    private void attackTarget()
+    private void attackTarget() // Performs attack calculation
     {
         TroopInstance enemy = currentTarget.GetComponent<TroopInstance>();
 
@@ -122,7 +156,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         Debug.Log("Enemy" + currentTarget.name + " HP after attack: " + enemy.healthPoints);
     }
 
-    private void useTarget()
+    private void useTarget() // Performs harvest calculation
     {
         throw new System.NotImplementedException();
     }
