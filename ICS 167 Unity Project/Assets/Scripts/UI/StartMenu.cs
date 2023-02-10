@@ -7,7 +7,8 @@ public class StartMenu : MonoBehaviour
 {
     public void Start1PlayerGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Game Rework");
     }
 
     public void ExitGame()
