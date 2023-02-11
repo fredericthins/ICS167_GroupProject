@@ -25,6 +25,12 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     [SerializeField] protected GameObject selectedHighlight;
     [SerializeField] protected GameObject targetedHighlight;
 
+
+    public void HPCheck()
+    {
+        if (healthPoints <= 0) Destroy(gameObject);
+    }
+
     public int getValue()
     {
         return value;
@@ -75,6 +81,16 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
             for (int i = 0; i < troops.Length; i++)
             {
                 if (troops[i].transform.position.x == troopPosition.x && troops[i].transform.position.z == troopPosition.z)
+                {
+                    tileBlocked = true;
+                }
+            }
+
+            ResourceInstance[] resources = FindObjectsOfType(typeof(ResourceInstance)) as ResourceInstance[];
+
+            for (int i = 0; i < resources.Length; i++)
+            {
+                if (resources[i].transform.position.x == troopPosition.x && resources[i].transform.position.z == troopPosition.z)
                 {
                     tileBlocked = true;
                 }
@@ -136,14 +152,28 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.GetComponent<Player>().player != gameObject.GetComponent<Player>().player)
+                if (hit.transform.CompareTag("Troop"))
                 {
-                    if (currentTarget != null) currentTarget.GetComponent<TroopInstance>().targetedHighlight.SetActive(false); // Turn off previous target's highlight if new target is selected
+                    if (hit.transform.GetComponent<Player>().player != gameObject.GetComponent<Player>().player)
+                    {
+                        if (currentTarget != null && currentTarget.CompareTag("Troop")) currentTarget.GetComponent<TroopInstance>().targetedHighlight.SetActive(false); // Turn off previous troop target's highlight if new target is selected
+                        else if (currentTarget != null && currentTarget.CompareTag("Resource")) currentTarget.GetComponent<ResourceInstance>().targetedHighlight.SetActive(false); // Turn off previous resource target's highlight if new target is selected
 
-                    currentTarget = hit.transform.gameObject; // Sets a troops current target
-                    hit.transform.gameObject.GetComponent<TroopInstance>().targetedHighlight.SetActive(true); // Activates the targeted highlight for the target
-                    Debug.Log("Enemy: " + currentTarget.name + " was selected");
+                        currentTarget = hit.transform.gameObject; // Sets a troops current target
+                        hit.transform.gameObject.GetComponent<TroopInstance>().targetedHighlight.SetActive(true); // Activates the targeted highlight for the target
+                        Debug.Log("Enemy: " + currentTarget.name + " was selected");
+                    }
                 }
+                else if (hit.transform.CompareTag("Resource"))
+                {
+                    if (currentTarget != null && currentTarget.CompareTag("Troop")) currentTarget.GetComponent<TroopInstance>().targetedHighlight.SetActive(false); // Turn off previous troop target's highlight if new target is selected
+                    else if (currentTarget != null && currentTarget.CompareTag("Resource")) currentTarget.GetComponent<ResourceInstance>().targetedHighlight.SetActive(false);// Turn off previous resource target's highlight if new target is selected
+
+                    currentTarget = hit.transform.gameObject; // Sets resource as a current target
+                    hit.transform.gameObject.GetComponent<ResourceInstance>().targetedHighlight.SetActive(true); // Activates the targeted highlight for the target
+                    Debug.Log("Resource: " + currentTarget.name + " was selected");
+                }
+                
             }
         }
     }
@@ -161,6 +191,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         }
         else if (currentTarget.tag == "Resource")
         {
+            if (currentTarget.transform.position.x <= gameObject.transform.position.x + stepDistance && currentTarget.transform.position.z <= gameObject.transform.position.z + stepDistance)
             useTarget();
         }
     }
@@ -175,6 +206,9 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 
     private void useTarget() // Performs harvest calculation
     {
-        throw new System.NotImplementedException();
+        ResourceInstance resource = currentTarget.GetComponent<ResourceInstance>();
+        resource.harvest();
+        Destroy(currentTarget);
+        currentTarget = null;
     }
 }

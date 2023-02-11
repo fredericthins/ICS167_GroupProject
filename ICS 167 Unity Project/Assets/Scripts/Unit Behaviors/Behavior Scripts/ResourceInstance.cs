@@ -5,19 +5,14 @@ using UnityEngine;
 public class ResourceInstance : MonoBehaviour, IHarvestable, ISelectable
 {
     public bool isSelected { get; set; }
+    [SerializeField] protected int value;
+    public GameObject selectedHighlight;
+    public GameObject targetedHighlight;
 
     public int harvest()
     {
-        throw new System.NotImplementedException();
+        GameManager.gold += value; // Updates P1 gold in static GameManager
+        return value; // Returns value
     }
 
-    public void select()
-    {
-
-    }
-
-    public void unselect()
-    {
-
-    }
 }

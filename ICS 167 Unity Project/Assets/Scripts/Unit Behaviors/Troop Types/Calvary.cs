@@ -26,6 +26,7 @@ public class Calvary : TroopInstance
 
     void Update()
     {
+        HPCheck();
         checkClicked(); // If the troop is clicked then isSelected becomes true
         if (isSelected)
         {

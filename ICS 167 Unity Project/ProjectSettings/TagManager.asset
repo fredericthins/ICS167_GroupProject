@@ -50,6 +50,9 @@ TagManager:
   - name: Player
     uniqueID: 449689643
     locked: 0
+  - name: Resource
+    uniqueID: 2360877173
+    locked: 0
   - name: HUD
     uniqueID: 2677883281
     locked: 0

@@ -27,6 +27,7 @@ public class Archer : TroopInstance
     // Update is called once per frame
     void Update()
     {
+        HPCheck();
         checkClicked(); // If the troop is clicked then isSelected becomes true
         if (isSelected)
         {
