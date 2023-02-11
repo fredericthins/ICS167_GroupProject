@@ -21,6 +21,10 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     private float horizontalBounds = 110f; // Troops should not be able to move past this distance horizontally (negative or positive)
     private float VerticalBounds = 50f; // Troops should not be able to move past this distance vertically (negative or positive)
 
+    // Highlight Child Objects
+    [SerializeField] protected GameObject selectedHighlight;
+    [SerializeField] protected GameObject targetedHighlight;
+
     public int getValue()
     {
         return value;
@@ -80,9 +84,11 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         for (int i = 0; i < troops.Length; i++)
         {
             troops[i].unselect();
+            troops[i].targetedHighlight.SetActive(false);
         }
         currentTarget = null;
         isSelected = true; ;
+        targetedHighlight.SetActive(true);
     }
 
     public void checkClicked() // Detects if a troop is clicked on by the user and selects clicked troop (if any)
@@ -123,8 +129,10 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
             {
                 if (hit.transform.GetComponent<Player>().player != gameObject.GetComponent<Player>().player)
                 {
-                    currentTarget = hit.transform.gameObject;
+                    if (currentTarget != null) currentTarget.GetComponent<TroopInstance>().targetedHighlight.SetActive(false); // Turn off previous target's highlight if new target is selected
 
+                    currentTarget = hit.transform.gameObject; // Sets a troops current target
+                    hit.transform.gameObject.GetComponent<TroopInstance>().targetedHighlight.SetActive(true); // Activates the targeted highlight for the target
                     Debug.Log("Enemy: " + currentTarget.name + " was selected");
                 }
             }
