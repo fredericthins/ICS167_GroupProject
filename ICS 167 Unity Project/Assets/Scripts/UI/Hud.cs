@@ -6,20 +6,21 @@ using TMPro;
 
 public class Hud : MonoBehaviour
 {
-    //[HideInInspector]
-    public string TroopName = "Troop Name";
-    //public int HealthPoints = 10;
-    //public int troopCost = 50;
-    //public TextMeshProUGUI testText;
+    
+    public TMP_Text TroopType;
+    public TMP_Text HPDisplay;
+    public TMP_Text P1GoldDisplay;
     // Start is called before the first frame update
     void Start()
     {
-        //testText.text = TroopName;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //testText.text = TroopName;
+        P1GoldDisplay.text = "$125";
+        TroopType.text = "Swordsman";
+        HPDisplay.text = "HP: 100";
     }
 }
