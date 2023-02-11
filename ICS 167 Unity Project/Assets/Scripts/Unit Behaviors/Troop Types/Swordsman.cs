@@ -17,6 +17,10 @@ public class Swordsman : TroopInstance
         isAlive = true; // Swordsman is alive when first spawned
         isSelected = false; // Swordsman is not selected when first spawned
         currentTarget = null; // Swordsman has no target when first spawned
+
+        // Highlight Child Objects
+        selectedHighlight = gameObject.transform.GetChild(0).gameObject;
+        targetedHighlight = gameObject.transform.GetChild(1).gameObject;
     }
 
     void Update()

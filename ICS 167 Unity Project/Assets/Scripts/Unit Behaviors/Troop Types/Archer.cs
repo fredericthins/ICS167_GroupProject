@@ -18,6 +18,10 @@ public class Archer : TroopInstance
         isAlive = true; // Archer is alive when first spawned
         isSelected = false; // Archer is not selected when first spawned
         currentTarget = null; // Archer has no target when first spawned
+
+        // Highlight Child Objects
+        selectedHighlight = gameObject.transform.GetChild(0).gameObject;
+        targetedHighlight = gameObject.transform.GetChild(1).gameObject;
     }
 
     // Update is called once per frame

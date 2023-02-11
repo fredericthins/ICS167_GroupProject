@@ -5,8 +5,8 @@ using UnityEngine;
 public interface ITroop
 {
     // Troop Stats
-    int healthPoints {get; set;}
-    int damageStat {get; set;}
+    public int getHP();
+    public int getValue();
 
     // Target Choosing
     void selectTarget(); // Select entity (troop or resource)

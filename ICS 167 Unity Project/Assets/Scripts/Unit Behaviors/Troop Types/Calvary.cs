@@ -18,6 +18,10 @@ public class Calvary : TroopInstance
         isAlive = true; // Cavalry is alive when first spawned
         isSelected = false; // Cavalry is not selected when first spawned
         currentTarget = null; // Cavalry has no target when first spawned
+
+        // Highlight Child Objects
+        selectedHighlight = gameObject.transform.GetChild(0).gameObject;
+        targetedHighlight = gameObject.transform.GetChild(1).gameObject;
     }
 
     void Update()

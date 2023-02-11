@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {   //Player1 Gold - Implement Player 2 Gold later;
-    int gold; 
-    List<ResourceInstance> mapResources;
+    static public int gold = 125; // Starting amount of gold
 
-    //Spawn resource prefab
-    public void SpawnResource(Vector3 position, GameObject resource){
-        Instantiate(resource, position, Quaternion.identity);
-    }
+    // Methods for turn management will likely be implemented here
 }
