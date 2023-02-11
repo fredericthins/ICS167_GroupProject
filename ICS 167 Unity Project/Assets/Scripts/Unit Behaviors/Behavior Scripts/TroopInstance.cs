@@ -5,17 +5,17 @@ using UnityEngine;
 public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 {
     // Troop Stats
-    public int healthPoints { get; set; } // A troop's remaining healthpoints
-    public int damageStat { get; set; } // How much damage a troop can do
-    public int attackRange { get; set; }
-    public int value { get; set; } // Gold cost of troop
-    public int stepsLimit { get; set; } // How many times a troop can move
-    public int stepDistance = 10; // Each step that a troop needs to take in the Unity grid system is 10 units (in the x or z direction)
+    protected int healthPoints; // A troop's remaining healthpoints
+    protected int damageStat; // How much damage a troop can do
+    protected int attackRange { get; set; }
+    protected int value { get; set; } // Gold cost of troop
+    protected int stepsLimit { get; set; } // How many times a troop can move
+    protected int stepDistance = 10; // Each step that a troop needs to take in the Unity grid system is 10 units (in the x or z direction)
 
     // Troop Conditions
     protected GameObject currentTarget;
-    public bool isAlive { get; set; } // Is troop alive
-    public bool isSelected { get; set; } // Is troop selected
+    public bool isAlive; // Is troop alive
+    public bool isSelected { set; get; } // Is troop selected
 
     // Bounds variables will likely need to be changed in future builds to support different map sizes
     private float horizontalBounds = 110f; // Troops should not be able to move past this distance horizontally (negative or positive)
@@ -28,6 +28,16 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     public int getValue()
     {
         return value;
+    }
+
+    public GameObject getCurrentTarget()
+    {
+        return currentTarget;
+    }
+
+    public int getHP()
+    {
+        return healthPoints;
     }
 
     public void moveCheck() // Gets movement input and moves troop
@@ -64,7 +74,6 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
             
             for (int i = 0; i < troops.Length; i++)
             {
-                print(troops[i]);
                 if (troops[i].transform.position.x == troopPosition.x && troops[i].transform.position.z == troopPosition.z)
                 {
                     tileBlocked = true;

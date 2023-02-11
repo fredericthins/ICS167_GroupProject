@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PuaseMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
     public void BackToTitle()
     {
