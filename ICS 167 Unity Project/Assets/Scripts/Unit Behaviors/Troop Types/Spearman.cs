@@ -26,17 +26,20 @@ public class Spearman : TroopInstance
 
     void Update()
     {
-        HPCheck();
-        checkClicked(); // If the troop is clicked then isSelected becomes true
-        if (isSelected)
+        if (!GameManager.isPaused)
         {
-            moveCheck(); // If a troop is selected, then it can move if the user inputs a movement key (WASD)
-            selectTarget(); // Checks if the user right clicks an enemy
-
-            if (currentTarget != null && Input.GetKeyDown("space"))
+            HPCheck();
+            checkClicked(); // If the troop is clicked then isSelected becomes true
+            if (isSelected)
             {
-                //Debug.Log("space key was pressed");
-                interactTarget();
+                moveCheck(); // If a troop is selected, then it can move if the user inputs a movement key (WASD)
+                selectTarget(); // Checks if the user right clicks an enemy
+
+                if (currentTarget != null && Input.GetKeyDown("space"))
+                {
+                    //Debug.Log("space key was pressed");
+                    interactTarget();
+                }
             }
         }
     }
