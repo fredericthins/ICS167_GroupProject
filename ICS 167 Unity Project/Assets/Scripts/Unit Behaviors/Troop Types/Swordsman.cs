@@ -19,8 +19,8 @@ public class Swordsman : TroopInstance
         currentTarget = null; // Swordsman has no target when first spawned
 
         // Highlight Child Objects
-        selectedHighlight = gameObject.transform.GetChild(0).gameObject;
-        targetedHighlight = gameObject.transform.GetChild(1).gameObject;
+        targetedHighlight = gameObject.transform.GetChild(0).gameObject;
+        selectedHighlight = gameObject.transform.GetChild(1).gameObject;
     }
 
     void Update()

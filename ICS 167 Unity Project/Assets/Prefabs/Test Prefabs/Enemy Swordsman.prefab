@@ -32,8 +32,8 @@ Transform:
   m_LocalScale: {x: 13, y: 13, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7463546800916700796}
   - {fileID: 6456223765148720403}
+  - {fileID: 7463546800916700796}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c58f62ee1bb93bf41a0d6ac113351e0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepDistance: 10
+  isAlive: 0
   selectedHighlight: {fileID: 0}
   targetedHighlight: {fileID: 0}
 --- !u!65 &802874252253942571
@@ -160,7 +160,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 802874252253942572}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8076648444357940394
 SpriteRenderer:
@@ -244,7 +244,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 802874252253942572}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7304221512829067396
 SpriteRenderer:

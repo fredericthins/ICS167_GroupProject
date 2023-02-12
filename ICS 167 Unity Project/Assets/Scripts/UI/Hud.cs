@@ -38,7 +38,7 @@ public class Hud : MonoBehaviour
 
         if (Input.GetKeyDown("escape"))
         {
-            if (pauseScreen.activeInHierarchy) pauseScreen.SetActive(false);
+            if (pauseScreen.activeInHierarchy)pauseScreen.SetActive(false);
             else pauseScreen.SetActive(true);
         }
     }
