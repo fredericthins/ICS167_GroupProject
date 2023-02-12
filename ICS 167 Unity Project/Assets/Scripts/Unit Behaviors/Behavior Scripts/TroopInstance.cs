@@ -108,12 +108,17 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         TroopInstance[] troops = FindObjectsOfType(typeof(TroopInstance)) as TroopInstance[];
         for (int i = 0; i < troops.Length; i++)
         {
-            troops[i].unselect();
-            troops[i].targetedHighlight.SetActive(false);
+            if (troops[i].isSelected)
+            {
+                troops[i].unselect();
+                troops[i].selectedHighlight.SetActive(false);
+                if (troops[i].getCurrentTarget() != null && troops[i].getCurrentTarget().CompareTag("Troop")) troops[i].currentTarget.GetComponent<TroopInstance>().targetedHighlight.SetActive(false); // If current target is a troop, turn off its highlight when switching troop
+                else if (troops[i].getCurrentTarget() != null && troops[i].getCurrentTarget().CompareTag("Resource")) troops[i].currentTarget.GetComponent<ResourceInstance>().targetedHighlight.SetActive(false); // If current target is a resource, turn off its highlight when switching troop
+            } 
         }
         currentTarget = null;
-        isSelected = true; ;
-        targetedHighlight.SetActive(true);
+        isSelected = true;
+        selectedHighlight.SetActive(true);
     }
 
     public void checkClicked() // Detects if a troop is clicked on by the user and selects clicked troop (if any)
@@ -140,6 +145,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     public void unselect() // Unselects troop
     {
         if (isSelected == true) Debug.Log(gameObject + " was unselected");
+
         isSelected = false;
     }
 
@@ -182,7 +188,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     {
         if (currentTarget.tag == "Troop")
         {
-            if ((currentTarget.transform.position.x <= gameObject.transform.position.x + (attackRange * stepDistance) && (currentTarget.transform.position.z <= gameObject.transform.position.z + (attackRange * stepDistance))))
+            if (Mathf.Abs(gameObject.transform.position.x - currentTarget.transform.position.x) <= (attackRange * stepDistance) && (Mathf.Abs(gameObject.transform.position.z - currentTarget.transform.position.z) <= (attackRange * stepDistance) ) )
             {
                 Debug.Log("Enemy in range: " + currentTarget.name + " HP is " + currentTarget.GetComponent<TroopInstance>().healthPoints);
                 attackTarget();
@@ -191,8 +197,8 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         }
         else if (currentTarget.tag == "Resource")
         {
-            if (currentTarget.transform.position.x <= gameObject.transform.position.x + stepDistance && currentTarget.transform.position.z <= gameObject.transform.position.z + stepDistance)
-            useTarget();
+            if (Mathf.Abs(gameObject.transform.position.x - currentTarget.transform.position.x) <= stepDistance && (Mathf.Abs(gameObject.transform.position.z - currentTarget.transform.position.z) <= stepDistance))
+                useTarget();
         }
     }
 

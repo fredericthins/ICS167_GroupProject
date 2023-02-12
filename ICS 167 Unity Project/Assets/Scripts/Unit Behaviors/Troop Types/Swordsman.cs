@@ -19,24 +19,27 @@ public class Swordsman : TroopInstance
         currentTarget = null; // Swordsman has no target when first spawned
 
         // Highlight Child Objects
-        selectedHighlight = gameObject.transform.GetChild(0).gameObject;
-        targetedHighlight = gameObject.transform.GetChild(1).gameObject;
+        targetedHighlight = gameObject.transform.GetChild(0).gameObject;
+        selectedHighlight = gameObject.transform.GetChild(1).gameObject;
     }
 
     void Update()
     {
-        HPCheck();
-        checkClicked(); // If the troop is clicked then isSelected becomes true
-        if (isSelected)
+        if(!GameManager.isPaused)
         {
-            moveCheck(); // If a troop is selected, then it can move if the user inputs a movement key (WASD)
-            selectTarget(); // Checks if the user right clicks an enemy
-            
-            if (currentTarget != null && Input.GetKeyDown("space"))
+            HPCheck();
+            checkClicked(); // If the troop is clicked then isSelected becomes true
+            if (isSelected)
             {
-                //Debug.Log("space key was pressed");
-                interactTarget();
-            }    
-        }
+                moveCheck(); // If a troop is selected, then it can move if the user inputs a movement key (WASD)
+                selectTarget(); // Checks if the user right clicks an enemy
+
+                if (currentTarget != null && Input.GetKeyDown("space"))
+                {
+                    //Debug.Log("space key was pressed");
+                    interactTarget();
+                }
+            }
+        }  
     }
 }

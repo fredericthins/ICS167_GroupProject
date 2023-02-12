@@ -16,7 +16,7 @@ public class Hud : MonoBehaviour
     public TMP_Text EnemyHPDisplay;
     public TMP_Text P2GoldDisplay;
 
-    public GameObject pauseScreen;
+    public GameObject pauseDisplay;
 
     // Start is called before the first frame update
     void Start()
@@ -36,10 +36,16 @@ public class Hud : MonoBehaviour
         P1GoldDisplay.text = "$" + GameManager.gold.ToString(); // Gets static gold variable from the game manager and updates Player 1 gold display
         troopUpdate(); // Update troop UI data
 
-        if (Input.GetKeyDown("escape"))
+        if (pauseDisplay.activeInHierarchy)
         {
-            if (pauseScreen.activeInHierarchy) pauseScreen.SetActive(false);
-            else pauseScreen.SetActive(true);
+            Debug.Log("Paused");
+            Time.timeScale = 0; // Pauses game
+            GameManager.isPaused = true;
+        }
+        else
+        {
+            Time.timeScale = 1; // Resumes game
+            GameManager.isPaused = false;
         }
     }
 
