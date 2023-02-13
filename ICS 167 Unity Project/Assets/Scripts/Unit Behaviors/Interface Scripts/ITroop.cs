@@ -4,6 +4,8 @@ using UnityEngine;
 
 public interface ITroop
 {
+    // ITroop was worked on by Luis
+
     // Troop Stats
     public int getHP();
     public int getValue();

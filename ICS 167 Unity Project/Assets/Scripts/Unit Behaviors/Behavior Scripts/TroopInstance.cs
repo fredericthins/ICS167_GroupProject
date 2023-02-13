@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 {
+    // TroopInstance was updated by Luis, Frederic, and Dale
+    // All objects that inherit from TroopInstance were worked on by all members of the group
+
     // Troop Stats
     protected int healthPoints; // A troop's remaining healthpoints
     protected int damageStat; // How much damage a troop can do

@@ -6,6 +6,8 @@ using TMPro;
 
 public class Hud : MonoBehaviour
 {
+    // The Hud script was made by Dale with additional methods by Luis
+
     // P1 UI
     public TMP_Text TroopType;
     public TMP_Text HPDisplay;
