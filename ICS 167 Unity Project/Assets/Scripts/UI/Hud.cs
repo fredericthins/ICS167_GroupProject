@@ -28,7 +28,7 @@ public class Hud : MonoBehaviour
         HPDisplay.text = "HP:";
 
         P2GoldDisplay.text = "$0";
-        EnemyTroopType.text = "TROOP TYPE";
+        EnemyTroopType.text = "Troop Type";
         EnemyHPDisplay.text = "HP:";
 }
 
