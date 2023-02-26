@@ -24,7 +24,7 @@ public class Hud : MonoBehaviour
     void Start()
     {
         P1GoldDisplay.text = GameManager.gold.ToString();
-        TroopType.text = "TROOP TYPE";
+        TroopType.text = "Troop Type";
         HPDisplay.text = "HP:";
 
         P2GoldDisplay.text = "$0";
@@ -86,7 +86,7 @@ public class Hud : MonoBehaviour
                 }
                 else // If there is no target then the enemy data stays as the default values
                 {
-                    EnemyTroopType.text = "TROOP TYPE";
+                    EnemyTroopType.text = "Troop Type";
                     EnemyHPDisplay.text = "HP:";
                 }
             }
