@@ -12,43 +12,45 @@ public class Hud : MonoBehaviour
     public TMP_Text TroopType;
     public TMP_Text HPDisplay;
     public TMP_Text P1GoldDisplay;
-    
-    // P2 UI
-    public TMP_Text EnemyTroopType;
-    public TMP_Text EnemyHPDisplay;
-    public TMP_Text P2GoldDisplay;
 
+    // P2 UI
+    public TMP_Text P2TroopType;
+    public TMP_Text P2HPDisplay;
+    public TMP_Text P2GoldDisplay;
     public GameObject pauseDisplay;
+
+    // Game Data
+    private GameManager gameManager;
+    private Player P1;
+    private Player P2;
+    public TMP_Text turnDisplay;
 
     // Start is called before the first frame update
     void Start()
     {
-        P1GoldDisplay.text = GameManager.gold.ToString();
+        gameManager = GameManager.getGameManager();
+
+        P1 = gameManager.getP1();
+        P2 = gameManager.getP2();
+
+        P1GoldDisplay.text = P1.getGold().ToString();
         TroopType.text = "TROOP TYPE";
         HPDisplay.text = "HP:";
 
-        P2GoldDisplay.text = "$0";
-        EnemyTroopType.text = "TROOP TYPE";
-        EnemyHPDisplay.text = "HP:";
+        P2GoldDisplay.text = P2.getGold().ToString();
+        P2TroopType.text = "TROOP TYPE";
+        P2HPDisplay.text = "HP:";
 }
 
     // Update is called once per frame
     void Update()
     {
-        P1GoldDisplay.text = "$" + GameManager.gold.ToString(); // Gets static gold variable from the game manager and updates Player 1 gold display
+        P1GoldDisplay.SetText("$" + P1.getGold().ToString()); // Gets gold variable from the game manager and updates Player 1 gold display
+        P2GoldDisplay.SetText("$" + P2.getGold().ToString()); // Gets gold variable from the game manager and updates Player 2 gold display
         troopUpdate(); // Update troop UI data
+        pauseCheck(); // Checks if game is paused
 
-        if (pauseDisplay.activeInHierarchy)
-        {
-            Debug.Log("Paused");
-            Time.timeScale = 0; // Pauses game
-            GameManager.isPaused = true;
-        }
-        else
-        {
-            Time.timeScale = 1; // Resumes game
-            GameManager.isPaused = false;
-        }
+        
     }
 
     private void troopUpdate()
@@ -72,27 +74,51 @@ public class Hud : MonoBehaviour
                     if (target.CompareTag("Troop"))
                     {
                         TroopInstance targetComponent = troops[i].getCurrentTarget().GetComponent<TroopInstance>();// Gets TroopInstance script of the target
-                        EnemyTroopType.text = targetComponent.GetType().ToString(); // Sets the troop type text to be the name of the enemy troop object that is selected
-                        EnemyHPDisplay.text = "HP: " + targetComponent.getHP().ToString(); // Sets the troop type text to be the name of troop type text to be the name of the enemy troop object that is selected
+                        P2TroopType.text = targetComponent.GetType().ToString(); // Sets the troop type text to be the name of the enemy troop object that is selected
+                        P2HPDisplay.text = "HP: " + targetComponent.getHP().ToString(); // Sets the troop type text to be the name of troop type text to be the name of the enemy troop object that is selected
                     }
-                    // Needs to change when multiplayer is implemented
                     else if (target.CompareTag("Resource"))
                     {
                         ResourceInstance targetComponent = troops[i].getCurrentTarget().GetComponent<ResourceInstance>();// Gets ResourceInstance script of the target
-                        EnemyTroopType.text = target.name.ToString(); // Changes enemy troop text to be the name of the resource
-                        EnemyHPDisplay.text = ""; // Resource has no HP
+                        P2TroopType.text = target.name.ToString(); // Changes enemy troop text to be the name of the resource
+                        P2HPDisplay.text = ""; // Resource has no HP
                     }
                     
                 }
                 else // If there is no target then the enemy data stays as the default values
                 {
-                    EnemyTroopType.text = "TROOP TYPE";
-                    EnemyHPDisplay.text = "HP:";
+                    P2TroopType.text = "TROOP TYPE";
+                    P2HPDisplay.text = "HP:";
                 }
             }
         }
     }
 
+    private void pauseCheck()
+    {
+        if (pauseDisplay.activeInHierarchy)
+        {
+            Debug.Log("Paused");
+            Time.timeScale = 0; // Pauses game
+            GameManager.isPaused = true;
+        }
+        else
+        {
+            Time.timeScale = 1; // Resumes game
+            GameManager.isPaused = false;
+        }
+    }
 
+    public void updateTurnText()
+    {
+        
+        Player actingPlayer = GameManager.GetPlayer();
+        Debug.Log("Turn text update has been called with current player: " + actingPlayer.getName());
 
+        if (actingPlayer != null)
+        {
+            turnDisplay.SetText(actingPlayer.getName() + "'s Turn");
+            Debug.Log("Turn text has been updated");
+        }
+    }
 }
