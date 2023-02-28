@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 802874252253942573}
   - component: {fileID: 802874252253942571}
   - component: {fileID: 8299128946096698724}
-  - component: {fileID: 7171285840485399632}
   m_Layer: 0
   m_Name: Scout
   m_TagString: Troop
@@ -114,22 +113,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a28501325c40ed4ba8a8ad53a123ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepDistance: 10
+  owner: {fileID: 0}
+  value: 30
+  isAlive: 0
   selectedHighlight: {fileID: 0}
   targetedHighlight: {fileID: 0}
---- !u!114 &7171285840485399632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 802874252253942575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2105b636cb691942ad8919864f66f19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: 
 --- !u!1 &4129735904863714939
 GameObject:
   m_ObjectHideFlags: 0

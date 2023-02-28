@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 802874252253942573}
   - component: {fileID: 802874252253942571}
   - component: {fileID: 5285611676395927362}
-  - component: {fileID: 8588937459555746292}
   m_Layer: 0
   m_Name: Spearman
   m_TagString: Troop
@@ -114,22 +113,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d1801190defcae47a2d8f89ab8a2eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepDistance: 10
+  owner: {fileID: 0}
+  value: 40
+  isAlive: 0
   selectedHighlight: {fileID: 0}
   targetedHighlight: {fileID: 0}
---- !u!114 &8588937459555746292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 802874252253942575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2105b636cb691942ad8919864f66f19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: 
 --- !u!1 &1644035323260805483
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class ResourceInstance : MonoBehaviour, IHarvestable, ISelectable
 
     public int harvest()
     {
-        GameManager.gold += value; // Updates P1 gold in static GameManager
+        //GameManager.gold += value;
         return value; // Returns value
     }
 

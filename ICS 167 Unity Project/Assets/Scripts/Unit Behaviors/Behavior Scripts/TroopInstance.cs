@@ -8,11 +8,15 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     // All objects that inherit from TroopInstance were worked on by all members of the group
 
     // Troop Stats
+    [SerializeField] protected Player owner;
+
     protected int healthPoints; // A troop's remaining healthpoints
     protected int damageStat; // How much damage a troop can do
+    [SerializeField] protected int value;
     protected int attackRange { get; set; }
-    protected int value { get; set; } // Gold cost of troop
+    protected bool attackSpent = false;
     protected int stepsLimit { get; set; } // How many times a troop can move
+    protected int stepsTaken = 0;
     protected int stepDistance = 10; // Each step that a troop needs to take in the Unity grid system is 10 units (in the x or z direction)
 
     // Troop Conditions
@@ -28,15 +32,19 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     [SerializeField] protected GameObject selectedHighlight;
     [SerializeField] protected GameObject targetedHighlight;
 
+    public void setOwner(Player player)
+    {
+        owner = player;
+    }
+
+    public Player getOwner()
+    {
+        return owner;
+    }
 
     public void HPCheck()
     {
         if (healthPoints <= 0) Destroy(gameObject);
-    }
-
-    public int getValue()
-    {
-        return value;
     }
 
     public GameObject getCurrentTarget()
@@ -49,28 +57,38 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         return healthPoints;
     }
 
+    public int getValue()
+    {
+        return value;
+    }
+
     public void moveCheck() // Gets movement input and moves troop
     {
-        if (Input.GetKeyDown("w"))
+        if (stepsTaken < stepsLimit)
         {
-            move(0, stepDistance);
+            if (Input.GetKeyDown("w"))
+            {
+                move(0, stepDistance);
+            }
+            if (Input.GetKeyDown("a"))
+            {
+                move(-stepDistance, 0);
+            }
+            if (Input.GetKeyDown("s"))
+            {
+                move(0, -stepDistance);
+            }
+            if (Input.GetKeyDown("d"))
+            {
+                move(stepDistance, 0);
+            }
         }
-        if (Input.GetKeyDown("a"))
-        {
-            move(-stepDistance, 0);
-        }
-        if (Input.GetKeyDown("s"))
-        {
-            move(0, -stepDistance);
-        }
-        if (Input.GetKeyDown("d"))
-        {
-            move(stepDistance, 0);
-        }
+        else Debug.Log("Cannot move anymore");
     }
 
     public void move(int x, int z) // Performs the move calculation and boundary check
     {
+        stepsTaken++;
         Vector3 troopPosition = transform.position;
         troopPosition += new Vector3(x, 0, z);
 
@@ -124,6 +142,22 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         selectedHighlight.SetActive(true);
     }
 
+    public void resetSteps()
+    {
+        stepsTaken = 0;
+    }    
+
+    public void resetHighlights()
+    {
+        selectedHighlight.SetActive(false);
+        targetedHighlight.SetActive(false);
+    }    
+
+    public void resetAttacks()
+    {
+        attackSpent = false;
+    }
+
     public void checkClicked() // Detects if a troop is clicked on by the user and selects clicked troop (if any)
     {
         if (Input.GetMouseButtonDown(0))
@@ -135,7 +169,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
             {
                 if (hit.transform == gameObject.transform)
                 {
-                    if(hit.transform.GetComponent<Player>().player != "Player 2") // NOTE!: This statement needs to change for future builds (currently only supports 1 player).
+                    if(hit.transform.GetComponent<TroopInstance>().getOwner() == GameManager.GetPlayer()) // NOTE!: This statement needs to change for future builds (currently only supports 1 player).
                     {
                         Debug.Log(gameObject.name + " was selected");
                         select();
@@ -163,7 +197,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
             {
                 if (hit.transform.CompareTag("Troop"))
                 {
-                    if (hit.transform.GetComponent<Player>().player != gameObject.GetComponent<Player>().player)
+                    if (hit.transform.GetComponent<TroopInstance>().getOwner() != GameManager.GetPlayer())
                     {
                         if (currentTarget != null && currentTarget.CompareTag("Troop")) currentTarget.GetComponent<TroopInstance>().targetedHighlight.SetActive(false); // Turn off previous troop target's highlight if new target is selected
                         else if (currentTarget != null && currentTarget.CompareTag("Resource")) currentTarget.GetComponent<ResourceInstance>().targetedHighlight.SetActive(false); // Turn off previous resource target's highlight if new target is selected
@@ -201,22 +235,32 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         else if (currentTarget.tag == "Resource")
         {
             if (Mathf.Abs(gameObject.transform.position.x - currentTarget.transform.position.x) <= stepDistance && (Mathf.Abs(gameObject.transform.position.z - currentTarget.transform.position.z) <= stepDistance))
+            {
                 useTarget();
+            }
         }
     }
 
     private void attackTarget() // Performs attack calculation
     {
-        TroopInstance enemy = currentTarget.GetComponent<TroopInstance>();
+        if (!attackSpent)
+        {
+            TroopInstance enemy = currentTarget.GetComponent<TroopInstance>();
 
-        enemy.healthPoints -= damageStat;
-        Debug.Log("Enemy" + currentTarget.name + " HP after attack: " + enemy.healthPoints);
+            enemy.healthPoints -= damageStat;
+            Debug.Log("Enemy" + currentTarget.name + " HP after attack: " + enemy.healthPoints);
+            attackSpent = true;
+        }
+        else
+        {
+            Debug.Log("Out of attacks");
+        }
     }
 
     private void useTarget() // Performs harvest calculation
     {
         ResourceInstance resource = currentTarget.GetComponent<ResourceInstance>();
-        resource.harvest();
+        owner.addGold(resource.harvest());
         Destroy(currentTarget);
         currentTarget = null;
     }

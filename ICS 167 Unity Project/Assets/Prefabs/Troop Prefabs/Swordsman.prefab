@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 802874252253942572}
   - component: {fileID: 802874252253942573}
-  - component: {fileID: 802874252253942574}
   - component: {fileID: 802874252253942571}
-  - component: {fileID: -2823222643215261726}
+  - component: {fileID: 829091167400876854}
   m_Layer: 0
   m_Name: Swordsman
   m_TagString: Troop
@@ -89,21 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &802874252253942574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 802874252253942575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c58f62ee1bb93bf41a0d6ac113351e0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stepDistance: 10
-  selectedHighlight: {fileID: 0}
-  targetedHighlight: {fileID: 0}
 --- !u!65 &802874252253942571
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -117,7 +101,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7686178, y: 0.7697712, z: 0.3}
   m_Center: {x: -0.00038689835, y: -0.11519997, z: 0.10000014}
---- !u!114 &-2823222643215261726
+--- !u!114 &829091167400876854
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,10 +110,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 802874252253942575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2105b636cb691942ad8919864f66f19, type: 3}
+  m_Script: {fileID: 11500000, guid: c58f62ee1bb93bf41a0d6ac113351e0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 
+  owner: {fileID: 0}
+  value: 20
+  isAlive: 0
+  selectedHighlight: {fileID: 0}
+  targetedHighlight: {fileID: 0}
 --- !u!1 &4478796529246194764
 GameObject:
   m_ObjectHideFlags: 0

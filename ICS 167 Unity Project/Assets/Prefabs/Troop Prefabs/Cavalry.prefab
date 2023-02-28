@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 802874252253942573}
   - component: {fileID: 802874252253942571}
   - component: {fileID: -6718078739114906891}
-  - component: {fileID: -2229383035824736310}
   m_Layer: 0
   m_Name: Cavalry
   m_TagString: Troop
@@ -114,22 +113,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ab6829bf2cb3e47932cab095942f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepDistance: 10
+  owner: {fileID: 0}
+  value: 80
+  isAlive: 0
   selectedHighlight: {fileID: 0}
   targetedHighlight: {fileID: 0}
---- !u!114 &-2229383035824736310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 802874252253942575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2105b636cb691942ad8919864f66f19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: 
 --- !u!1 &3037777656209902816
 GameObject:
   m_ObjectHideFlags: 0
