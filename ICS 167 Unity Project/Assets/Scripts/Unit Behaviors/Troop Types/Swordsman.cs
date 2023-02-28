@@ -4,59 +4,42 @@ using UnityEngine;
 
 public class Swordsman : TroopInstance
 {
-    int movementSpeed = 10;
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        healthPoints = 10;
-        damageStat = 5;
-        isAlive = true;
-        isSelected = false;
+        // Troop Stats
+        healthPoints = 10; // Swordsman HP
+        damageStat = 5; // Swordsman attack damage
+        attackRange = 1; // Swordsman attack range
+        stepsLimit = 3; // Total moves allowed per turn
+        value = 20;
+
+        // Troop Conditions
+        isAlive = true; // Swordsman is alive when first spawned
+        isSelected = false; // Swordsman is not selected when first spawned
+        currentTarget = null; // Swordsman has no target when first spawned
+
+        // Highlight Child Objects
+        targetedHighlight = gameObject.transform.GetChild(0).gameObject;
+        selectedHighlight = gameObject.transform.GetChild(1).gameObject;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        checkClicked();
-        if (isSelected) moveCheck();
-    }
-
-    private void moveCheck()
-    {
-        if (Input.GetKeyDown("w"))
+        if(!GameManager.isPaused)
         {
-            move(0, movementSpeed);
-        }
-        if (Input.GetKeyDown("a"))
-        {
-            move(-movementSpeed, 0);
-        }
-        if (Input.GetKeyDown("s"))
-        {
-            move(0, -movementSpeed);
-        }
-        if (Input.GetKeyDown("d"))
-        {
-            move(movementSpeed, 0);
-        }
-    }
-
-    private void checkClicked() // Detects if a troop is clicked on by the user
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
+            HPCheck();
+            checkClicked(); // If the troop is clicked then isSelected becomes true
+            if (isSelected)
             {
-                if (hit.transform ==  gameObject.transform)
+                moveCheck(); // If a troop is selected, then it can move if the user inputs a movement key (WASD)
+                selectTarget(); // Checks if the user right clicks an enemy
+
+                if (currentTarget != null && Input.GetKeyDown("space"))
                 {
-                    Debug.Log("Swordsman was selected");
-                    select();
+                    //Debug.Log("space key was pressed");
+                    interactTarget();
                 }
             }
-        }
+        }  
     }
 }

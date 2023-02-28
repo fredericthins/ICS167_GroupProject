@@ -4,9 +4,6 @@ using UnityEngine;
 
 public interface ISelectable
 {
+    // ISelectable was made by Luis
     public bool isSelected {get; set;}
-
-    public void select();
-    public void unselect();
-
 }

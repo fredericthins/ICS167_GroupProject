@@ -7,12 +7,7 @@ public class Cow : ResourceInstance
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        value = 30;
+        targetedHighlight = gameObject.transform.GetChild(0).gameObject;
     }
 }
