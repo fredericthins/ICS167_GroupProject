@@ -88,7 +88,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 
     public void move(int x, int z) // Performs the move calculation and boundary check
     {
-        stepsTaken++;
+        
         Vector3 troopPosition = transform.position;
         troopPosition += new Vector3(x, 0, z);
 
@@ -117,7 +117,11 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
                 }
             }
 
-            if (tileBlocked == false) transform.position = troopPosition;
+            if (tileBlocked == false)
+            {
+                transform.position = troopPosition;
+                stepsTaken++;
+            }
         }
         else Debug.Log("Boundaries checked and enforced");
 
@@ -263,5 +267,10 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         owner.addGold(resource.harvest());
         Destroy(currentTarget);
         currentTarget = null;
+    }
+
+    public void takeDamage(int damage)
+    {
+        healthPoints -= damage;
     }
 }
