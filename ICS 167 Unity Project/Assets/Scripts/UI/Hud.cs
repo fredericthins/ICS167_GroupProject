@@ -12,11 +12,13 @@ public class Hud : MonoBehaviour
     public TMP_Text TroopType;
     public TMP_Text HPDisplay;
     public TMP_Text P1GoldDisplay;
+    public TMP_Text P1UtilityDisplay;
 
     // P2 UI
     public TMP_Text P2TroopType;
     public TMP_Text P2HPDisplay;
     public TMP_Text P2GoldDisplay;
+    public TMP_Text P2UtilityDisplay;
     public GameObject pauseDisplay;
 
     // Game Data
