@@ -7,9 +7,11 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     // TroopInstance was updated by Luis, Frederic, and Dale
     // All objects that inherit from TroopInstance were worked on by all members of the group
 
+    // HQ Stats
+    private bool isHQ;
+
     // Troop Stats
     [SerializeField] protected Player owner;
-
     protected int healthPoints; // A troop's remaining healthpoints
     protected int damageStat; // How much damage a troop can do
     [SerializeField] protected int value;
@@ -245,7 +247,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         }
     }
 
-    private void attackTarget() // Performs attack calculation
+    public void attackTarget() // Performs attack calculation
     {
         if (!attackSpent)
         {
@@ -261,7 +263,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         }
     }
 
-    private void useTarget() // Performs harvest calculation
+    public void useTarget() // Performs harvest calculation
     {
         ResourceInstance resource = currentTarget.GetComponent<ResourceInstance>();
         owner.addGold(resource.harvest());
