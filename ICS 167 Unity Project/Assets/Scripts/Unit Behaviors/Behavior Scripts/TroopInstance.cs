@@ -62,6 +62,26 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         return value;
     }
 
+    public int getATT()
+    {
+        return damageStat;
+    }
+
+    public int getRange()
+    {
+        return attackRange;
+    }
+
+    public int getMove()
+    {
+        return stepsLimit;
+    }
+
+    public int getCost()
+    {
+        return value;
+    }
+
     public void moveCheck() // Gets movement input and moves troop
     {
         if (stepsTaken < stepsLimit)

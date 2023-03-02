@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class StatsDisplay : MonoBehaviour
+public class CalvaryStatsDisplay : MonoBehaviour
 {
-    
-    Swordsman swordsman;
-    
+    Calvary calvary;
+
     // Troop Stats
     public TMP_Text TroopType;
     public TMP_Text TroopHP;
@@ -17,28 +16,25 @@ public class StatsDisplay : MonoBehaviour
     public TMP_Text TroopRange;
     public TMP_Text TroopCost;
 
-    
-
     void Awake()
     {
-        swordsman = GameObject.Find("Swordsman").GetComponent<Swordsman>();
+        calvary = GameObject.Find("Calvary").GetComponent<Calvary>();
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        TroopHP.text = "Hp: " + swordsman.getHP().ToString();
-        TroopATT.text = "Att: " + swordsman.getATT().ToString();
-        TroopMove.text = "Move: " + swordsman.getMove().ToString();
-        TroopRange.text = "Range: " + swordsman.getRange().ToString();
-        TroopCost.text = "Cost: " + swordsman.getCost().ToString();
+        TroopHP.text = "Hp: " + calvary.getHP().ToString();
+        TroopATT.text = "Att: " + calvary.getATT().ToString();
+        TroopMove.text = "Move: " + calvary.getMove().ToString();
+        TroopRange.text = "Range: " + calvary.getRange().ToString();
+        TroopCost.text = "Cost: " + calvary.getCost().ToString();
     }
-
 }

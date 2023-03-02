@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 802874252253942571}
   - component: {fileID: -6718078739114906891}
   m_Layer: 0
-  m_Name: Cavalry
+  m_Name: Calvary
   m_TagString: Troop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

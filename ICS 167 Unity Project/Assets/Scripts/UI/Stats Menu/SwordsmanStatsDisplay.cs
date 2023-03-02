@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class StatsDisplay : MonoBehaviour
+public class SwordsmanStatsDisplay : MonoBehaviour
 {
-    
     Swordsman swordsman;
-    
+
     // Troop Stats
     public TMP_Text TroopType;
     public TMP_Text TroopHP;
@@ -17,7 +16,7 @@ public class StatsDisplay : MonoBehaviour
     public TMP_Text TroopRange;
     public TMP_Text TroopCost;
 
-    
+
 
     void Awake()
     {
@@ -28,7 +27,7 @@ public class StatsDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -40,5 +39,4 @@ public class StatsDisplay : MonoBehaviour
         TroopRange.text = "Range: " + swordsman.getRange().ToString();
         TroopCost.text = "Cost: " + swordsman.getCost().ToString();
     }
-
 }

@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class StatsDisplay : MonoBehaviour
+public class SpearmanStatsDisplay : MonoBehaviour
 {
-    
-    Swordsman swordsman;
-    
+    Spearman spearman;
+
     // Troop Stats
     public TMP_Text TroopType;
     public TMP_Text TroopHP;
@@ -17,28 +16,27 @@ public class StatsDisplay : MonoBehaviour
     public TMP_Text TroopRange;
     public TMP_Text TroopCost;
 
-    
+
 
     void Awake()
     {
-        swordsman = GameObject.Find("Swordsman").GetComponent<Swordsman>();
+        spearman = GameObject.Find("Spearman").GetComponent<Spearman>();
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        TroopHP.text = "Hp: " + swordsman.getHP().ToString();
-        TroopATT.text = "Att: " + swordsman.getATT().ToString();
-        TroopMove.text = "Move: " + swordsman.getMove().ToString();
-        TroopRange.text = "Range: " + swordsman.getRange().ToString();
-        TroopCost.text = "Cost: " + swordsman.getCost().ToString();
+        TroopHP.text = "Hp: " + spearman.getHP().ToString();
+        TroopATT.text = "Att: " + spearman.getATT().ToString();
+        TroopMove.text = "Move: " + spearman.getMove().ToString();
+        TroopRange.text = "Range: " + spearman.getRange().ToString();
+        TroopCost.text = "Cost: " + spearman.getCost().ToString();
     }
-
 }
