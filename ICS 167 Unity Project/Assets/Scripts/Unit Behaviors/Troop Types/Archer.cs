@@ -8,7 +8,7 @@ public class Archer : TroopInstance
     {
         // Troop Stats
         healthPoints = 7; // Archer HP
-        damageStat = 3; // Archer attack damage
+        damageStat = 2; // Archer attack damage
         value = 55; // Archer gold cost
         attackRange = 6; // Archer attack range
         stepsLimit = 3; // Total allowed moves per turn
