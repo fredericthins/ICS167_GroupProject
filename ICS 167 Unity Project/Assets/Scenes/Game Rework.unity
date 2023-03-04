@@ -18539,6 +18539,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1188858701}
   m_CullTransparentMesh: 1
+--- !u!1 &1216678951 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6477586997610465399, guid: 629ad9ada65cc8a42bc771afc28070c7, type: 3}
+  m_PrefabInstance: {fileID: 7335833123379306004}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1226708296 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8651135636477051150, guid: 5ab39b2598d21134b94a928203485b15, type: 3}
@@ -30606,9 +30611,25 @@ PrefabInstance:
       propertyPath: targetedHighlight
       value: 
       objectReference: {fileID: 7335833123379306005}
+    - target: {fileID: 1722740318058400590, guid: 629ad9ada65cc8a42bc771afc28070c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4609027967576827151, guid: 629ad9ada65cc8a42bc771afc28070c7, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4609027967576827151, guid: 629ad9ada65cc8a42bc771afc28070c7, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1073738817
+      objectReference: {fileID: 0}
     - target: {fileID: 7335833123291148837, guid: 629ad9ada65cc8a42bc771afc28070c7, type: 3}
       propertyPath: m_Name
       value: P1 HQ
+      objectReference: {fileID: 0}
+    - target: {fileID: 7335833123291148837, guid: 629ad9ada65cc8a42bc771afc28070c7, type: 3}
+      propertyPath: m_TagString
+      value: HQ
       objectReference: {fileID: 0}
     - target: {fileID: 7335833123291148839, guid: 629ad9ada65cc8a42bc771afc28070c7, type: 3}
       propertyPath: m_RootOrder
@@ -30654,7 +30675,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7811281812377765017, guid: 629ad9ada65cc8a42bc771afc28070c7, type: 3}
+      propertyPath: owner
+      value: 
+      objectReference: {fileID: 299742859}
+    - target: {fileID: 7811281812377765017, guid: 629ad9ada65cc8a42bc771afc28070c7, type: 3}
+      propertyPath: isAlive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7811281812377765017, guid: 629ad9ada65cc8a42bc771afc28070c7, type: 3}
+      propertyPath: selectedHighlight
+      value: 
+      objectReference: {fileID: 1216678951}
+    - target: {fileID: 7811281812377765017, guid: 629ad9ada65cc8a42bc771afc28070c7, type: 3}
+      propertyPath: targetedHighlight
+      value: 
+      objectReference: {fileID: 7335833123379306005}
+    m_RemovedComponents:
+    - {fileID: 1003649527012019193, guid: 629ad9ada65cc8a42bc771afc28070c7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 629ad9ada65cc8a42bc771afc28070c7, type: 3}
 --- !u!1 &7335833123379306005 stripped
 GameObject:

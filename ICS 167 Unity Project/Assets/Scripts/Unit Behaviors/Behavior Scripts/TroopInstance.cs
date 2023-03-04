@@ -201,7 +201,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.CompareTag("Troop"))
+                if (hit.transform.CompareTag("Troop") || hit.transform.CompareTag("HQ"))
                 {
                     if (hit.transform.GetComponent<TroopInstance>().getOwner() != GameManager.GetPlayer())
                     {
