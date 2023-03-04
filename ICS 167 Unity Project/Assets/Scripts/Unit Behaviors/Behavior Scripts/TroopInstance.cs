@@ -236,10 +236,10 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
                 else if (hit.transform.CompareTag("Resource"))
                 {
                     if (currentTarget != null && ( currentTarget.CompareTag("Troop") || currentTarget.CompareTag("HQ") ) ) currentTarget.GetComponent<TroopInstance>().targetedHighlight.SetActive(false); // Turn off previous troop target's highlight if new target is selected
-                    else if (currentTarget != null && currentTarget.CompareTag("Resource")) currentTarget.GetComponent<ResourceInstance>().targetedHighlight.SetActive(false);// Turn off previous resource target's highlight if new target is selected
+                    else if (currentTarget != null && currentTarget.CompareTag("Resource")) currentTarget.GetComponent<ResourceInstance>().resetHighlight();// Turn off previous resource target's highlight if new target is selected
 
                     currentTarget = hit.transform.gameObject; // Sets resource as a current target
-                    hit.transform.gameObject.GetComponent<ResourceInstance>().targetedHighlight.SetActive(true); // Activates the targeted highlight for the target
+                    hit.transform.gameObject.GetComponent<ResourceInstance>().setHighlight(); // Activates the targeted highlight for the target
                     Debug.Log("Resource: " + currentTarget.name + " was selected");
                 }
                 
@@ -249,7 +249,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 
     public void interactTarget() // Troop interacts with the target (attacks enemy or harvests resource)
     {
-        if (currentTarget.tag == "Troop")
+        if (currentTarget.CompareTag("Troop") || currentTarget.CompareTag("HQ"))
         {
             if (Mathf.Abs(gameObject.transform.position.x - currentTarget.transform.position.x) <= (attackRange * stepDistance) && (Mathf.Abs(gameObject.transform.position.z - currentTarget.transform.position.z) <= (attackRange * stepDistance) ) )
             {

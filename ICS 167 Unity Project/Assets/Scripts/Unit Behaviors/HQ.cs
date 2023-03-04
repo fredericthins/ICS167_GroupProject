@@ -7,7 +7,7 @@ public class HQ : TroopInstance
     void Awake()
     {
         // HQ Stats
-        healthPoints = 50; // HQ HP
+        healthPoints = 30; // HQ HP
         stepsLimit = 0;
 
         // Troop Conditions

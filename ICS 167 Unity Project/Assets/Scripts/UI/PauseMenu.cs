@@ -9,5 +9,7 @@ public class PauseMenu : MonoBehaviour
     public void BackToTitle()
     {
         SceneManager.LoadScene("Start Menu");
+        Time.timeScale = 1; // Unpauses game
+        GameManager.isPaused = false;
     }
 }
