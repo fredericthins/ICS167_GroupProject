@@ -1,19 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    // GameManager was worked on by Frederic and Luis
     static private GameManager instance;
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private TMP_Text winnerMessage;
 
     static private int initialGold = 125; // Default gold setting for game start
     static public bool isMultiplayer = false; // The game's default game type
 
-    // GameManager was worked on by Frederic and Luis
-    public Player P1;
-    public Player P2;
+    
+    public Player P1; // Player 1 Object
+    public Player P2; // Player 2 Object
+    [SerializeField] private TroopInstance P1Hq; // Player 1's Headquarters data
+    [SerializeField] private TroopInstance P2Hq; // Player 2's Headquarters data
+
+    [SerializeField] private TroopManager troopData;
+
+    [SerializeField] private int minimumGold; // Minimum amount of gold needed to purchase cheapest troop (used for end conditions and stored here for future changes)
+
 
     static public bool isPaused = false;
+    private bool gameIsOver;
 
     // Turn Management
     static public int turnCount = 0;
@@ -22,13 +34,15 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        gameIsOver = false;
         resetGame();
     }
 
     // Turn Checking. Determines current player.
     private void Update()
     {
-        // checkCurrentPlayer();
+        checkCurrentPlayer();
+        if (!gameIsOver) checkEndConditions();
     }
 
     static public GameManager getGameManager()
@@ -60,6 +74,47 @@ public class GameManager : MonoBehaviour
                 currentPlayer = P2;
             }
         } 
+    }
+
+    private void checkEndConditions()
+    {
+        // If P1 or P2 have there HQ destroyed than the game ends.
+        if (P1Hq.getHP() <= 0)
+        {
+            Debug.Log("Player 2 Wins. Player 1's HQ was destroyed.");
+            Time.timeScale = 0; // Pauses game
+            isPaused = true;
+            triggerGameOver(P2);
+        }
+        if (P2Hq.getHP() <= 0)
+        {
+            Debug.Log("Player 1 Wins. Player 2's HQ was destroyed.");
+            Time.timeScale = 0; // Pauses game
+            isPaused = true;
+            triggerGameOver(P1);
+        }
+
+        // If P1 or P2 have less than the minimum gold needed to buy a troop and is out of troops then the game ends.
+        if (P1.getGold() < minimumGold && troopData.getP1Troops().Count <= 0)
+        {
+            Debug.Log("Player 2 Wins. Player 1 is out of resources and troops.");
+            Time.timeScale = 0; // Pauses game
+            isPaused = true;
+            triggerGameOver(P2);
+        }
+        if (P2.getGold() < minimumGold && troopData.getP1Troops().Count <= 0)
+        {
+            Debug.Log("Player 1 Wins. Player 2 is out of resources and troops.");
+            Time.timeScale = 0; // Pauses game
+            isPaused = true;
+            triggerGameOver(P1);
+        }
+    }
+    private void triggerGameOver(Player winner)
+    {
+        gameIsOver = true;
+        winnerMessage.SetText(winner.getName() + " wins!");
+        gameOverScreen.SetActive(true);
     }
 
     public Player getP1()
@@ -96,10 +151,14 @@ public class GameManager : MonoBehaviour
     // Increments turn count
     public void nextTurn()
     {
-        turnCount++;
-        Debug.Log("Turn incremented. Turn count is now: " + turnCount);
-        checkCurrentPlayer();
-        resetTroopConditions();
+        if (!gameIsOver)
+        {
+            turnCount++;
+            Debug.Log("Turn incremented. Turn count is now: " + turnCount);
+            checkCurrentPlayer();
+            resetTroopConditions();
+            resetResourceConditions();
+        }     
     }
 
     public int getTurn()
@@ -116,6 +175,15 @@ public class GameManager : MonoBehaviour
             troops[i].resetHighlights();
             troops[i].resetAttacks();
             troops[i].unselect();
+        }
+    }
+
+    private void resetResourceConditions()
+    {
+        ResourceInstance[] resources = FindObjectsOfType(typeof(ResourceInstance)) as ResourceInstance[];
+        for (int i = 0; i < resources.Length; i++)
+        {
+            resources[i].resetHighlight();
         }
     }
 }
