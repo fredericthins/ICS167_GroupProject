@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 7811281812377765017}
   - component: {fileID: 5472946585022023799}
   m_Layer: 0
-  m_Name: P1 HQ
+  m_Name: Player HQ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -217,9 +217,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
   value: 0
-  isAlive: 0
-  selectedHighlight: {fileID: 0}
-  targetedHighlight: {fileID: 0}
+  isAlive: 1
+  selectedHighlight: {fileID: 6477586997610465399}
+  targetedHighlight: {fileID: 1722740318058400590}
 --- !u!65 &5472946585022023799
 BoxCollider:
   m_ObjectHideFlags: 0

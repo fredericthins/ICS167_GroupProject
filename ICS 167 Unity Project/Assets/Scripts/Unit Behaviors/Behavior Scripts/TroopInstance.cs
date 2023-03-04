@@ -225,7 +225,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
                 {
                     if (hit.transform.GetComponent<TroopInstance>().getOwner() != GameManager.GetPlayer())
                     {
-                        if (currentTarget != null && currentTarget.CompareTag("Troop")) currentTarget.GetComponent<TroopInstance>().targetedHighlight.SetActive(false); // Turn off previous troop target's highlight if new target is selected
+                        if (currentTarget != null && ( currentTarget.CompareTag("Troop") || currentTarget.CompareTag("HQ") ) ) currentTarget.GetComponent<TroopInstance>().targetedHighlight.SetActive(false); // Turn off previous troop target's highlight if new target is selected
                         else if (currentTarget != null && currentTarget.CompareTag("Resource")) currentTarget.GetComponent<ResourceInstance>().targetedHighlight.SetActive(false); // Turn off previous resource target's highlight if new target is selected
 
                         currentTarget = hit.transform.gameObject; // Sets a troops current target
@@ -235,7 +235,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
                 }
                 else if (hit.transform.CompareTag("Resource"))
                 {
-                    if (currentTarget != null && currentTarget.CompareTag("Troop")) currentTarget.GetComponent<TroopInstance>().targetedHighlight.SetActive(false); // Turn off previous troop target's highlight if new target is selected
+                    if (currentTarget != null && ( currentTarget.CompareTag("Troop") || currentTarget.CompareTag("HQ") ) ) currentTarget.GetComponent<TroopInstance>().targetedHighlight.SetActive(false); // Turn off previous troop target's highlight if new target is selected
                     else if (currentTarget != null && currentTarget.CompareTag("Resource")) currentTarget.GetComponent<ResourceInstance>().targetedHighlight.SetActive(false);// Turn off previous resource target's highlight if new target is selected
 
                     currentTarget = hit.transform.gameObject; // Sets resource as a current target

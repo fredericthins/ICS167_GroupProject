@@ -10,7 +10,6 @@ public class Calvary : TroopInstance
         // Troop Stats
         healthPoints = 15; // Cavalry HP
         damageStat = 4; // Cavalry attack damage
-        value = 80; // Cavalry gold cost
         attackRange = 1; // Cavalry attack range
         stepsLimit = 5; // Total allowed moves per turn
 

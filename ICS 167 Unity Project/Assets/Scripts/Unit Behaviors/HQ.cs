@@ -7,12 +7,13 @@ public class HQ : TroopInstance
     void Awake()
     {
         // HQ Stats
-        healthPoints = 50; // Swordsman HP
+        healthPoints = 50; // HQ HP
         stepsLimit = 0;
 
         // Troop Conditions
-        isAlive = true; // Swordsman is alive when first spawned
-        isSelected = false; // Swordsman is not selected when first spawned
+        isAlive = true; // HQ is alive when first spawned
+        isSelected = false; // HQ is not selected
+        currentTarget = null; // HQ has no target
     }
 
     // Update is called once per frame
