@@ -63,12 +63,17 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (turnCount % 2 == 1) // Player 1's turns
+            if (turnCount % 3 == 1) // Player 1's turns
             {
                 // Debug.Log("Player 1's Turn");
                 currentPlayer = P1;
             }
-            if (turnCount % 2 == 0) // Player 2's turns
+            if (turnCount % 3 == 2) // NPC turn
+            {
+                // Debug.Log("NPC Turn");
+                currentPlayer = null;
+            }
+            if (turnCount % 3 == 0) // Player 2's turns
             {
                 // Debug.Log("Player 2's Turn");
                 currentPlayer = P2;
@@ -102,7 +107,7 @@ public class GameManager : MonoBehaviour
             isPaused = true;
             triggerGameOver(P2);
         }
-        if (P2.getGold() < minimumGold && troopData.getP1Troops().Count <= 0)
+        if (P2.getGold() < minimumGold && troopData.getP2Troops().Count <= 0)
         {
             Debug.Log("Player 1 Wins. Player 2 is out of resources and troops.");
             Time.timeScale = 0; // Pauses game
@@ -110,6 +115,8 @@ public class GameManager : MonoBehaviour
             triggerGameOver(P1);
         }
     }
+
+    // Triggers the game over
     private void triggerGameOver(Player winner)
     {
         gameIsOver = true;
@@ -137,7 +144,7 @@ public class GameManager : MonoBehaviour
         currentPlayer = null;
     }
     
-
+    // For future use in online multiplayer
     static public void enableMultiplayer()
     {
         isMultiplayer = true;
@@ -161,11 +168,13 @@ public class GameManager : MonoBehaviour
         }     
     }
 
+    // Gets current turn
     public int getTurn()
     {
         return turnCount;
     }
 
+    // Resets troop conditions
     private void resetTroopConditions()
     {
         TroopInstance[] troops = FindObjectsOfType(typeof(TroopInstance)) as TroopInstance[];
@@ -178,6 +187,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Reset resource conditions
     private void resetResourceConditions()
     {
         ResourceInstance[] resources = FindObjectsOfType(typeof(ResourceInstance)) as ResourceInstance[];

@@ -84,6 +84,26 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         return value;
     }
 
+    public int getStepDistance()
+    {
+        return stepDistance;
+    }
+
+    public int getStepsTaken()
+    {
+        return stepsTaken;
+    }
+
+    public int getStepsLimit()
+    {
+        return stepsLimit;
+    }
+
+    public bool getAttackSpent()
+    {
+        return attackSpent;
+    }
+
     public void moveCheck() // Gets movement input and moves troop
     {
         if (stepsTaken < stepsLimit)
@@ -212,6 +232,11 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         isSelected = false;
     }
 
+    public void spendAttack()
+    {
+        attackSpent = true;
+    }
+
     public void selectTarget() // Selects target (enemy troop or resource)
     {
         if (Input.GetMouseButtonDown(1)) // Check if user right clicks on target
@@ -294,5 +319,6 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     public void takeDamage(int damage)
     {
         healthPoints -= damage;
+        Debug.Log(gameObject.name + " took damage");
     }
 }

@@ -155,13 +155,16 @@ public class Hud : MonoBehaviour
 
     public void updateTurnText()
     {
-        
         Player actingPlayer = GameManager.GetPlayer();
-        Debug.Log("Turn text update has been called with current player: " + actingPlayer.getName());
 
         if (actingPlayer != null)
         {
             turnDisplay.SetText(actingPlayer.getName() + "'s Turn");
+            Debug.Log("Turn text has been updated");
+        }
+        else
+        {
+            turnDisplay.SetText("NPC Turn");
             Debug.Log("Turn text has been updated");
         }
     }

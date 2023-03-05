@@ -30,6 +30,25 @@ public class TroopManager : MonoBehaviour
         P2 = gameManager.getP2();
     }
 
+    private void Update()
+    {
+        if (P1TroopList.Count > 0)
+        {
+            for (int i = 0; i < P1TroopList.Count; i++)
+            {
+                if (P1TroopList[i] == null) P1TroopList.RemoveAt(i);
+            }
+        }
+
+        if (P2TroopList.Count > 0)
+        {
+            for (int i = 0; i < P2TroopList.Count; i++)
+            {
+                if (P2TroopList[i] == null) P2TroopList.RemoveAt(i);
+            }
+        }      
+    }
+
     public int submitTroopCost(int cost) // For UI recruitment menu buttons
     {
         return cost;
@@ -44,7 +63,7 @@ public class TroopManager : MonoBehaviour
     // Returns P2TroopList
     public List<GameObject> getP2Troops()
     {
-        return P1TroopList;
+        return P2TroopList;
     }
 
     public TroopInstance getSelectedTroop()
@@ -80,8 +99,8 @@ public class TroopManager : MonoBehaviour
                 if (P1TroopList.Count < maxTroops)
                 {
                     P1.addGold(-troopCost);
-                    spawnP1Troop(recruitedTroop);
-                    P1TroopList.Add(recruitedTroop);
+                    GameObject spawnedTroop = spawnP1Troop(recruitedTroop);
+                    P1TroopList.Add(spawnedTroop);
                     Debug.Log("Gold remaining: " + P1.getGold());
                 }
             }
@@ -102,8 +121,8 @@ public class TroopManager : MonoBehaviour
                 if (P2TroopList.Count < maxTroops)
                 {
                     P2.addGold(-troopCost);
-                    spawnP2Troop(recruitedTroop);
-                    P2TroopList.Add(recruitedTroop);
+                    GameObject spawnedTroop = spawnP2Troop(recruitedTroop);
+                    P2TroopList.Add(spawnedTroop);
                 }
             }
         }  
@@ -119,7 +138,7 @@ public class TroopManager : MonoBehaviour
     }
 
     // Spawns troop for P1. Involved UI recruitment menu through the add troop methods
-    private void spawnP1Troop(GameObject troop)
+    private GameObject spawnP1Troop(GameObject troop)
     {
         bool tileBlocked = false;
         TroopInstance[] troops = FindObjectsOfType(typeof(TroopInstance)) as TroopInstance[];
@@ -143,15 +162,16 @@ public class TroopManager : MonoBehaviour
             }
             else
             {
-                Instantiate(troop, spawnPosition, P1SpawnList[i].transform.rotation);
-                return;
+                GameObject spawnedTroop = Instantiate(troop, spawnPosition, P1SpawnList[i].transform.rotation);
+                return spawnedTroop;
             }
         }
         Debug.Log("P1 Spawns are occupied");
+        return null;
     }
 
     // Spawns troop for P2. Involved UI recruitment menu through the add troop methods
-    private void spawnP2Troop(GameObject troop)
+    private GameObject spawnP2Troop(GameObject troop)
     {
         bool tileBlocked = false;
         TroopInstance[] troops = FindObjectsOfType(typeof(TroopInstance)) as TroopInstance[];
@@ -175,10 +195,11 @@ public class TroopManager : MonoBehaviour
             }
             else
             {
-                Instantiate(troop, spawnPosition, P2SpawnList[i].transform.rotation);
-                return;
+                GameObject spawnedTroop = Instantiate(troop, spawnPosition, P2SpawnList[i].transform.rotation);
+                return spawnedTroop;
             }
         }
         Debug.Log("P2 Spawns are occupied");
+        return null;
     }
 }
