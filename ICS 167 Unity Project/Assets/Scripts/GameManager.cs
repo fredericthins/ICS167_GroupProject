@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     static private int initialGold = 125; // Default gold setting for game start
     static public bool isMultiplayer = false; // The game's default game type
 
-    
+    public bool settingUp;
     public Player P1; // Player 1 Object
     public Player P2; // Player 2 Object
     [SerializeField] private TroopInstance P1Hq; // Player 1's Headquarters data
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         gameIsOver = false;
         resetGame();
+        settingUp = true;
     }
 
     // Turn Checking. Determines current player.
@@ -54,6 +55,11 @@ public class GameManager : MonoBehaviour
     static public Player GetPlayer()
     {
         return currentPlayer;
+    }
+
+    public bool getSettingUp()
+    {
+        return settingUp;
     }
 
     private void checkCurrentPlayer()
@@ -171,6 +177,7 @@ public class GameManager : MonoBehaviour
             checkCurrentPlayer();
             resetTroopConditions();
             resetResourceConditions();
+            settingUp = false;
         }     
     }
 
