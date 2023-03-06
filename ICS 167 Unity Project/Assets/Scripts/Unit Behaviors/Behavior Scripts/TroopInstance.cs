@@ -167,7 +167,6 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         }
         else Debug.Log("Boundaries checked and enforced");
 
-        // Steps limit will be implemented when the turn system is implemented in future builds
     }
 
     public void select() // Selects troop and unselects all other troops

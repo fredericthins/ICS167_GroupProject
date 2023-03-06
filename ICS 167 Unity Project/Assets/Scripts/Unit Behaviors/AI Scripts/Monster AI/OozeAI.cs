@@ -24,7 +24,7 @@ public class OozeAI : MonsterAI
     {
         if (GameManager.GetPlayer() == null)
         {
-            Debug.Log("State is " + state);
+            // Debug.Log("OozeState is " + state);
             state.commandMonster();
         }
     }
@@ -32,7 +32,7 @@ public class OozeAI : MonsterAI
     public override void setState(MonsterState state)
     {
         this.state = state;
-        state.setMonster(monster);
+        this.state.setMonster(monster);
     }
 
     public override int getPatrolDirection()

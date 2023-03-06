@@ -86,7 +86,7 @@ public class TroopManager : MonoBehaviour
     // Add a troop to P1's army
     public void addP1Troop(GameObject troop)
     {
-        if (GameManager.GetPlayer() != P2)
+        if (GameManager.GetPlayer() != P2 && GameManager.GetPlayer() != null)
         {
             int P1Gold = P1.getGold();
             int troopCost = troop.GetComponent<TroopInstance>().getValue();
@@ -110,7 +110,7 @@ public class TroopManager : MonoBehaviour
     // Add a troop to P2's army
     public void addP2Troop(GameObject troop)
     {
-        if (GameManager.GetPlayer() != P1)
+        if (GameManager.GetPlayer() != P1 && GameManager.GetPlayer() != null)
         {
             int P2Gold = P2.getGold();
             int troopCost = troop.GetComponent<TroopInstance>().getValue();

@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     static public int turnCount = 0;
     static public Player currentPlayer; // Is assigned a player (P1 or P2) depending on the turn
 
+
     private void Awake()
     {
         instance = this;
@@ -63,20 +64,25 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (turnCount % 3 == 1) // Player 1's turns
+            if (turnCount % 4 == 1) // Player 1's turns
             {
                 // Debug.Log("Player 1's Turn");
                 currentPlayer = P1;
             }
-            if (turnCount % 3 == 2) // NPC turn
+            if (turnCount % 4 == 2) // NPC turn
             {
                 // Debug.Log("NPC Turn");
                 currentPlayer = null;
             }
-            if (turnCount % 3 == 0) // Player 2's turns
+            if (turnCount % 4 == 3) // Player 2's turns
             {
                 // Debug.Log("Player 2's Turn");
                 currentPlayer = P2;
+            }
+            if (turnCount % 4 == 0) // Player 2's turns
+            {
+                // Debug.Log("NPC's Turn");
+                currentPlayer = null;
             }
         } 
     }
@@ -190,10 +196,19 @@ public class GameManager : MonoBehaviour
     // Reset resource conditions
     private void resetResourceConditions()
     {
+
         ResourceInstance[] resources = FindObjectsOfType(typeof(ResourceInstance)) as ResourceInstance[];
+
         for (int i = 0; i < resources.Length; i++)
         {
-            resources[i].resetHighlight();
+            if (resources != null)
+            {
+                resources[i].resetHighlight();
+                if (resources[i].GetComponent<AnimalAI>() != null)
+                {
+                    resources[i].GetComponent<AnimalAI>().resetSteps();
+                }
+            }    
         }
     }
 }
