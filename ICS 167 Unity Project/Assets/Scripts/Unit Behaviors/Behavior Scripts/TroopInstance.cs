@@ -84,6 +84,26 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         return value;
     }
 
+    public int getStepDistance()
+    {
+        return stepDistance;
+    }
+
+    public int getStepsTaken()
+    {
+        return stepsTaken;
+    }
+
+    public int getStepsLimit()
+    {
+        return stepsLimit;
+    }
+
+    public bool getAttackSpent()
+    {
+        return attackSpent;
+    }
+
     public void moveCheck() // Gets movement input and moves troop
     {
         if (stepsTaken < stepsLimit)
@@ -147,7 +167,6 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         }
         else Debug.Log("Boundaries checked and enforced");
 
-        // Steps limit will be implemented when the turn system is implemented in future builds
     }
 
     public void select() // Selects troop and unselects all other troops
@@ -210,6 +229,11 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
         if (isSelected == true) Debug.Log(gameObject + " was unselected");
 
         isSelected = false;
+    }
+
+    public void spendAttack()
+    {
+        attackSpent = true;
     }
 
     public void selectTarget() // Selects target (enemy troop or resource)
@@ -294,5 +318,6 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     public void takeDamage(int damage)
     {
         healthPoints -= damage;
+        Debug.Log(gameObject.name + " took damage");
     }
 }
