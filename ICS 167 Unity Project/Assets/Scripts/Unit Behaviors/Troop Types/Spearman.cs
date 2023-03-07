@@ -10,7 +10,6 @@ public class Spearman : TroopInstance
         // Troop Stats
         healthPoints = 7; // Spearman HP
         damageStat = 3; // Spearman attack damage
-        value = 40; // Spearman gold cost
         attackRange = 2; // Spearman attack range
         stepsLimit = 3; // Total allowed moves per turn
 

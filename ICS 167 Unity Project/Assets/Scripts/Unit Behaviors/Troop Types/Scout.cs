@@ -10,7 +10,6 @@ public class Scout : TroopInstance
         // Troop Stats
         healthPoints = 10; // Scout HP
         damageStat = 1; // Scout attack damage
-        value = 30; // Scout gold cost
         attackRange = 1; // Scout attack range
         stepsLimit = 6; // Total allowed moves per turn
 

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Swordsman : TroopInstance
 {
-    void Awake()
+    
+    void Start()
     {
         // Troop Stats
         healthPoints = 10; // Swordsman HP
-        damageStat = 5; // Swordsman attack damage
+        damageStat = 3; // Swordsman attack damage
         attackRange = 1; // Swordsman attack range
         stepsLimit = 3; // Total moves allowed per turn
-        value = 20;
 
         // Troop Conditions
         isAlive = true; // Swordsman is alive when first spawned
@@ -42,4 +42,5 @@ public class Swordsman : TroopInstance
             }
         }  
     }
+    
 }
