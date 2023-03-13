@@ -18,6 +18,8 @@ public class TroopManager : MonoBehaviour
     [SerializeField] private List<GameObject> P1TroopList;
     [SerializeField] private List<GameObject> P2TroopList;
 
+
+
     private void Start()
     {
         maxTroops = 5;
@@ -28,47 +30,102 @@ public class TroopManager : MonoBehaviour
         P2 = gameManager.getP2();
     }
 
+    private void Update()
+    {
+        if (P1TroopList.Count > 0)
+        {
+            for (int i = 0; i < P1TroopList.Count; i++)
+            {
+                if (P1TroopList[i] == null) P1TroopList.RemoveAt(i);
+            }
+        }
+
+        if (P2TroopList.Count > 0)
+        {
+            for (int i = 0; i < P2TroopList.Count; i++)
+            {
+                if (P2TroopList[i] == null) P2TroopList.RemoveAt(i);
+            }
+        }      
+    }
+
     public int submitTroopCost(int cost) // For UI recruitment menu buttons
     {
         return cost;
     }
 
+    // Returns P1TroopList
+    public List<GameObject> getP1Troops()
+    {
+        return P1TroopList;
+    }
+
+    // Returns P2TroopList
+    public List<GameObject> getP2Troops()
+    {
+        return P2TroopList;
+    }
+
+    public TroopInstance getSelectedTroop()
+    {
+        TroopInstance[] troops = FindObjectsOfType(typeof(TroopInstance)) as TroopInstance[];
+        TroopInstance selectedTroop;
+
+        for (int i = 0; i < troops.Length; i++)
+        {
+            if (troops[i].isSelected)
+            {
+                selectedTroop = troops[i];
+                return selectedTroop;
+            }
+        }
+
+        return null;
+    }
+
     // Add a troop to P1's army
     public void addP1Troop(GameObject troop)
     {
-        int P1Gold = P1.getGold();
-        int troopCost = troop.GetComponent<TroopInstance>().getValue();
-        Debug.Log("Troop Cost is: " + troopCost);
-
-        // Checks if the player has enough gold to buy a troop
-        if (P1Gold >= troopCost)
+        if (GameManager.GetPlayer() == P1 || gameManager.getSettingUp())
         {
-            GameObject recruitedTroop = setUpTroop(troop, P1);
-            if (P1TroopList.Count < maxTroops)
+            int P1Gold = P1.getGold();
+            int troopCost = troop.GetComponent<TroopInstance>().getValue();
+            Debug.Log("Troop Cost is: " + troopCost);
+
+            // Checks if the player has enough gold to buy a troop
+            if (P1Gold >= troopCost)
             {
-                P1.addGold(-troopCost);
-                spawnP1Troop(recruitedTroop);
-                P1TroopList.Add(recruitedTroop);
-                Debug.Log("Gold remaining: " + P1.getGold());
+                GameObject recruitedTroop = setUpTroop(troop, P1);
+                if (P1TroopList.Count < maxTroops)
+                {
+                    P1.addGold(-troopCost);
+                    GameObject spawnedTroop = spawnP1Troop(recruitedTroop);
+                    P1TroopList.Add(spawnedTroop);
+                    Debug.Log("Gold remaining: " + P1.getGold());
+                }
             }
         }
     }
 
+    // Add a troop to P2's army
     public void addP2Troop(GameObject troop)
     {
-        int P2Gold = P2.getGold();
-        int troopCost = troop.GetComponent<TroopInstance>().getValue();
-
-        if (P2Gold >= troopCost)
+        if (GameManager.GetPlayer() == P2 || gameManager.getSettingUp())
         {
-            GameObject recruitedTroop = setUpTroop(troop, P2);
-            if (P2TroopList.Count < maxTroops)
+            int P2Gold = P2.getGold();
+            int troopCost = troop.GetComponent<TroopInstance>().getValue();
+
+            if (P2Gold >= troopCost)
             {
-                P2.addGold(-troopCost);
-                spawnP2Troop(recruitedTroop);
-                P2TroopList.Add(recruitedTroop);
+                GameObject recruitedTroop = setUpTroop(troop, P2);
+                if (P2TroopList.Count < maxTroops)
+                {
+                    P2.addGold(-troopCost);
+                    GameObject spawnedTroop = spawnP2Troop(recruitedTroop);
+                    P2TroopList.Add(spawnedTroop);
+                }
             }
-        }
+        }  
     }
 
     // Assigns a player to a troop
@@ -80,7 +137,8 @@ public class TroopManager : MonoBehaviour
         return recruitedTroop;
     }
 
-    private void spawnP1Troop(GameObject troop)
+    // Spawns troop for P1. Involved UI recruitment menu through the add troop methods
+    private GameObject spawnP1Troop(GameObject troop)
     {
         bool tileBlocked = false;
         TroopInstance[] troops = FindObjectsOfType(typeof(TroopInstance)) as TroopInstance[];
@@ -104,14 +162,16 @@ public class TroopManager : MonoBehaviour
             }
             else
             {
-                Instantiate(troop, spawnPosition, P1SpawnList[i].transform.rotation);
-                return;
+                GameObject spawnedTroop = Instantiate(troop, spawnPosition, P1SpawnList[i].transform.rotation);
+                return spawnedTroop;
             }
         }
         Debug.Log("P1 Spawns are occupied");
+        return null;
     }
 
-    private void spawnP2Troop(GameObject troop)
+    // Spawns troop for P2. Involved UI recruitment menu through the add troop methods
+    private GameObject spawnP2Troop(GameObject troop)
     {
         bool tileBlocked = false;
         TroopInstance[] troops = FindObjectsOfType(typeof(TroopInstance)) as TroopInstance[];
@@ -135,10 +195,11 @@ public class TroopManager : MonoBehaviour
             }
             else
             {
-                Instantiate(troop, spawnPosition, P2SpawnList[i].transform.rotation);
-                return;
+                GameObject spawnedTroop = Instantiate(troop, spawnPosition, P2SpawnList[i].transform.rotation);
+                return spawnedTroop;
             }
         }
         Debug.Log("P2 Spawns are occupied");
+        return null;
     }
 }

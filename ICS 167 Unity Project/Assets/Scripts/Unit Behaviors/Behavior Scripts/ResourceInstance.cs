@@ -9,7 +9,6 @@ public class ResourceInstance : MonoBehaviour, IHarvestable, ISelectable
 
     public bool isSelected { get; set; }
     [SerializeField] protected int value;
-    public GameObject selectedHighlight;
     public GameObject targetedHighlight;
 
     public int harvest()
@@ -17,5 +16,12 @@ public class ResourceInstance : MonoBehaviour, IHarvestable, ISelectable
         //GameManager.gold += value;
         return value; // Returns value
     }
-
+    public void resetHighlight()
+    {
+        targetedHighlight.SetActive(false);
+    }
+    public void setHighlight()
+    {
+        targetedHighlight.SetActive(true);
+    }
 }
