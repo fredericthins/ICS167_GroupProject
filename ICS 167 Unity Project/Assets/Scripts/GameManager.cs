@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     static private int initialGold = 125; // Default gold setting for game start
     static public bool isMultiplayer = false; // The game's default game type
 
-    
+    public bool settingUp;
     public Player P1; // Player 1 Object
     public Player P2; // Player 2 Object
     [SerializeField] private TroopInstance P1Hq; // Player 1's Headquarters data
@@ -31,11 +31,13 @@ public class GameManager : MonoBehaviour
     static public int turnCount = 0;
     static public Player currentPlayer; // Is assigned a player (P1 or P2) depending on the turn
 
+
     private void Awake()
     {
         instance = this;
         gameIsOver = false;
         resetGame();
+        settingUp = true;
     }
 
     // Turn Checking. Determines current player.
@@ -55,6 +57,11 @@ public class GameManager : MonoBehaviour
         return currentPlayer;
     }
 
+    public bool getSettingUp()
+    {
+        return settingUp;
+    }
+
     private void checkCurrentPlayer()
     {
         if (turnCount == 0) // Pre-game set up (both sides buy troops)
@@ -63,15 +70,25 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (turnCount % 2 == 1) // Player 1's turns
+            if (turnCount % 4 == 1) // Player 1's turns
             {
                 // Debug.Log("Player 1's Turn");
                 currentPlayer = P1;
             }
-            if (turnCount % 2 == 0) // Player 2's turns
+            if (turnCount % 4 == 2) // NPC turn
+            {
+                // Debug.Log("NPC Turn");
+                currentPlayer = null;
+            }
+            if (turnCount % 4 == 3) // Player 2's turns
             {
                 // Debug.Log("Player 2's Turn");
                 currentPlayer = P2;
+            }
+            if (turnCount % 4 == 0) // Player 2's turns
+            {
+                // Debug.Log("NPC's Turn");
+                currentPlayer = null;
             }
         } 
     }
@@ -102,7 +119,7 @@ public class GameManager : MonoBehaviour
             isPaused = true;
             triggerGameOver(P2);
         }
-        if (P2.getGold() < minimumGold && troopData.getP1Troops().Count <= 0)
+        if (P2.getGold() < minimumGold && troopData.getP2Troops().Count <= 0)
         {
             Debug.Log("Player 1 Wins. Player 2 is out of resources and troops.");
             Time.timeScale = 0; // Pauses game
@@ -110,6 +127,8 @@ public class GameManager : MonoBehaviour
             triggerGameOver(P1);
         }
     }
+
+    // Triggers the game over
     private void triggerGameOver(Player winner)
     {
         gameIsOver = true;
@@ -137,7 +156,7 @@ public class GameManager : MonoBehaviour
         currentPlayer = null;
     }
     
-
+    // For future use in online multiplayer
     static public void enableMultiplayer()
     {
         isMultiplayer = true;
@@ -158,14 +177,17 @@ public class GameManager : MonoBehaviour
             checkCurrentPlayer();
             resetTroopConditions();
             resetResourceConditions();
+            settingUp = false;
         }     
     }
 
+    // Gets current turn
     public int getTurn()
     {
         return turnCount;
     }
 
+    // Resets troop conditions
     private void resetTroopConditions()
     {
         TroopInstance[] troops = FindObjectsOfType(typeof(TroopInstance)) as TroopInstance[];
@@ -178,12 +200,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Reset resource conditions
     private void resetResourceConditions()
     {
+
         ResourceInstance[] resources = FindObjectsOfType(typeof(ResourceInstance)) as ResourceInstance[];
+
         for (int i = 0; i < resources.Length; i++)
         {
-            resources[i].resetHighlight();
+            if (resources != null)
+            {
+                resources[i].resetHighlight();
+                if (resources[i].GetComponent<AnimalAI>() != null)
+                {
+                    resources[i].GetComponent<AnimalAI>().resetSteps();
+                }
+            }    
         }
     }
 }
