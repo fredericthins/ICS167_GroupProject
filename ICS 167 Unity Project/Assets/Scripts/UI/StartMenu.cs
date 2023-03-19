@@ -7,15 +7,15 @@ public class StartMenu : MonoBehaviour
 {
     // StartMenu was worked on by Dale
 
-    public void Start1PlayerGame()
+    public void StartLocalGame()
     {
         SceneManager.LoadScene("Game Rework");
         GameManager.resetGame(); // Loads default settings for game
         GameManager.disableMultiplayer();
     }
-    public void Start2PlayerGame()
+    public void StartNetworkGame()
     {
-        SceneManager.LoadScene("Game Rework");
+        SceneManager.LoadScene("Loading");
         GameManager.resetGame(); // Loads default settings for game
         GameManager.enableMultiplayer();
     }
