@@ -1870,7 +1870,7 @@ MonoBehaviour:
         m_MethodName: addP1Troop
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 802874252253942575, guid: 8fd10e4675b9cd7429a3b5262b3eb8eb, type: 3}
+          m_ObjectArgument: {fileID: 802874252253942575, guid: 2112a25643f642a4a81093381f53a8fb, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -9111,7 +9111,7 @@ MonoBehaviour:
         m_MethodName: addP1Troop
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 802874252253942575, guid: c63c2be3637201f489996b2a5b60969e, type: 3}
+          m_ObjectArgument: {fileID: 802874252253942575, guid: af2abd0e18e2dc3438e9d75a261f1701, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -12348,7 +12348,7 @@ MonoBehaviour:
         m_MethodName: addP1Troop
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 802874252253942575, guid: 8fd10e4675b9cd7429a3b5262b3eb8eb, type: 3}
+          m_ObjectArgument: {fileID: 802874252253942575, guid: 2112a25643f642a4a81093381f53a8fb, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -16801,7 +16801,7 @@ MonoBehaviour:
         m_MethodName: addP1Troop
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 802874252253942575, guid: 20670e17135768d45b8c2000d74fcb39, type: 3}
+          m_ObjectArgument: {fileID: 802874252253942575, guid: c87fc02513124b64ba83fef8c5adee0c, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -21100,7 +21100,7 @@ MonoBehaviour:
         m_MethodName: addP1Troop
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 802874252253942575, guid: c63c2be3637201f489996b2a5b60969e, type: 3}
+          m_ObjectArgument: {fileID: 802874252253942575, guid: af2abd0e18e2dc3438e9d75a261f1701, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -25135,6 +25135,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1839680312}
+    - target: {fileID: 189061115926049575, guid: c35d36feed32ee34fa21e897eefeaca7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 802874252253942575, guid: 6b54e114f6f2b24418dd94914574f332, type: 3}
     - target: {fileID: 189061115926049576, guid: c35d36feed32ee34fa21e897eefeaca7, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -25215,6 +25219,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1839680312}
+    - target: {fileID: 189061116018716454, guid: c35d36feed32ee34fa21e897eefeaca7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 802874252253942575, guid: 86918d098e4652a4db237fa596d0e113, type: 3}
     - target: {fileID: 189061116018716455, guid: c35d36feed32ee34fa21e897eefeaca7, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -26899,6 +26907,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1839680312}
+    - target: {fileID: 8258200271368046808, guid: 628de282283c3544abfacfed160d737c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 802874252253942575, guid: 6b54e114f6f2b24418dd94914574f332, type: 3}
     - target: {fileID: 8258200271368046809, guid: 628de282283c3544abfacfed160d737c, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -27587,6 +27599,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1839680312}
+    - target: {fileID: 8258200272978788519, guid: 628de282283c3544abfacfed160d737c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 802874252253942575, guid: 86918d098e4652a4db237fa596d0e113, type: 3}
     - target: {fileID: 8258200272998226608, guid: 628de282283c3544abfacfed160d737c, type: 3}
       propertyPath: m_fontColor.b
       value: 0.82745105
