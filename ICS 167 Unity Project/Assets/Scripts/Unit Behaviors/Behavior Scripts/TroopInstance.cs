@@ -34,6 +34,9 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     [SerializeField] protected GameObject selectedHighlight;
     [SerializeField] protected GameObject targetedHighlight;
 
+    //Animator Variables
+    [SerializeField] Animator anim;
+
     public void setOwner(Player player)
     {
         owner = player;
@@ -295,6 +298,8 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     {
         if (!attackSpent)
         {
+            anim.SetTrigger("Attack");
+
             TroopInstance enemy = currentTarget.GetComponent<TroopInstance>();
 
             enemy.healthPoints -= damageStat;
