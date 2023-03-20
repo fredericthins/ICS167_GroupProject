@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 {
     // TroopInstance was updated by Luis, Frederic, and Dale
     // All objects that inherit from TroopInstance were worked on by all members of the group
+
+    private PhotonView view;
 
     // HQ Stats
     private bool isHQ;
@@ -36,6 +39,12 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 
     //Animator Variables
     [SerializeField] Animator anim;
+
+
+    private void Awake()
+    {
+        view = GetComponent<PhotonView>();
+    }
 
     public void setOwner(Player player)
     {
@@ -217,11 +226,23 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
             {
                 if (hit.transform == gameObject.transform)
                 {
-                    if(hit.transform.GetComponent<TroopInstance>().getOwner() == GameManager.GetPlayer()) // NOTE!: This statement needs to change for future builds (currently only supports 1 player).
+                    if (GameManager.isMultiplayer && view.IsMine)
                     {
-                        Debug.Log(gameObject.name + " was selected");
-                        select();
+                        if (hit.transform.GetComponent<TroopInstance>().getOwner() == GameManager.GetPlayer()) 
+                        {
+                            Debug.Log(gameObject.name + " was selected");
+                            select();
+                        }
                     }
+                    else
+                    {
+                        if (hit.transform.GetComponent<TroopInstance>().getOwner() == GameManager.GetPlayer())
+                        {
+                            Debug.Log(gameObject.name + " was selected");
+                            select();
+                        }
+                    }
+                    
                 }
             }
         }

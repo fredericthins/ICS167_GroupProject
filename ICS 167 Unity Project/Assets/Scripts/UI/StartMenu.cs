@@ -10,13 +10,13 @@ public class StartMenu : MonoBehaviour
     public void StartLocalGame()
     {
         SceneManager.LoadScene("Game Rework");
-        GameManager.resetGame(); // Loads default settings for game
+        //GameManager.resetGame(); // Loads default settings for game
         GameManager.disableMultiplayer();
     }
     public void StartNetworkGame()
     {
         SceneManager.LoadScene("Loading");
-        GameManager.resetGame(); // Loads default settings for game
+        //GameManager.resetGame(); // Loads default settings for game
         GameManager.enableMultiplayer();
     }
 

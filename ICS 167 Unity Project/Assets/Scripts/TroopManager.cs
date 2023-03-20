@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class TroopManager : MonoBehaviour
 {
@@ -162,8 +163,16 @@ public class TroopManager : MonoBehaviour
             }
             else
             {
-                GameObject spawnedTroop = Instantiate(troop, spawnPosition, P1SpawnList[i].transform.rotation);
-                return spawnedTroop;
+                if (GameManager.isMultiplayer)
+                {
+                    GameObject spawnedTroop = PhotonNetwork.Instantiate(troop.name, spawnPosition, P1SpawnList[i].transform.rotation);
+                    return spawnedTroop;
+                }
+                else
+                {
+                    GameObject spawnedTroop = Instantiate(troop, spawnPosition, P1SpawnList[i].transform.rotation);
+                    return spawnedTroop;
+                }
             }
         }
         Debug.Log("P1 Spawns are occupied");
@@ -195,8 +204,16 @@ public class TroopManager : MonoBehaviour
             }
             else
             {
-                GameObject spawnedTroop = Instantiate(troop, spawnPosition, P2SpawnList[i].transform.rotation);
-                return spawnedTroop;
+                if (GameManager.isMultiplayer)
+                {
+                    GameObject spawnedTroop = PhotonNetwork.Instantiate(troop.name, spawnPosition, P2SpawnList[i].transform.rotation);
+                    return spawnedTroop;
+                }
+                else
+                {
+                    GameObject spawnedTroop = Instantiate(troop, spawnPosition, P2SpawnList[i].transform.rotation);
+                    return spawnedTroop;
+                }
             }
         }
         Debug.Log("P2 Spawns are occupied");

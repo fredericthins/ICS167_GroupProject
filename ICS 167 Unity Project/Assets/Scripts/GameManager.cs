@@ -148,8 +148,6 @@ public class GameManager : MonoBehaviour
     // Default settings for new game
     static public void resetGame()
     {
-        instance.P1.setName("Player 1");
-        instance.P2.setName("Player 2");
         instance.P1.setGold(initialGold);
         instance.P2.setGold(initialGold);
         turnCount = 0;
