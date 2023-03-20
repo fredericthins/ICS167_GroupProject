@@ -15,7 +15,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 
     // Troop Stats
     [SerializeField] protected Player owner;
-    protected int healthPoints; // A troop's remaining healthpoints
+    [SerializeField] protected int healthPoints; // A troop's remaining healthpoints
     protected int damageStat; // How much damage a troop can do
     [SerializeField] protected int value;
     protected int attackRange { get; set; }
@@ -58,7 +58,17 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
 
     public void HPCheck()
     {
-        if (healthPoints <= 0) Destroy(gameObject);
+        if (healthPoints <= 0)
+        {
+            if (GameManager.isMultiplayer)
+            {
+                PhotonNetwork.Destroy(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     public GameObject getCurrentTarget()
@@ -337,6 +347,7 @@ public class TroopInstance : MonoBehaviour, ITroop, ISelectable
     {
         ResourceInstance resource = currentTarget.GetComponent<ResourceInstance>();
         owner.addGold(resource.harvest());
+
         Destroy(currentTarget);
         currentTarget = null;
     }

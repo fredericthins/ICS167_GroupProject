@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
+  healthPoints: 0
   value: 30
   isAlive: 0
   selectedHighlight: {fileID: 0}

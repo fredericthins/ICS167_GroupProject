@@ -13,6 +13,10 @@ public class TroopManager : MonoBehaviour
     [SerializeField] private Player P1;
     [SerializeField] private Player P2;
 
+
+    [SerializeField] private GameObject HQ1;
+    [SerializeField] private GameObject HQ2;
+
     [SerializeField] private List<GameObject> P1SpawnList;
     [SerializeField] private List<GameObject> P2SpawnList;
 
@@ -21,7 +25,7 @@ public class TroopManager : MonoBehaviour
 
 
 
-    private void Start()
+    private void Awake()
     {
         maxTroops = 5;
         P1TroopList = new List<GameObject>();
@@ -31,6 +35,7 @@ public class TroopManager : MonoBehaviour
         P2 = gameManager.getP2();
     }
 
+    
     private void Update()
     {
         if (P1TroopList.Count > 0)
@@ -49,6 +54,27 @@ public class TroopManager : MonoBehaviour
             }
         }      
     }
+    
+
+    /*
+    private void spawnHQs()
+    {
+        if (GameManager.isMultiplayer)
+        {
+            GameObject spawnedHQ1 = PhotonNetwork.Instantiate(HQ1.name, HQ1.transform.position, HQ1.transform.rotation);
+            spawnedHQ1.SetActive(true);
+
+            GameObject spawnedHQ2 = PhotonNetwork.Instantiate(HQ2.name, HQ2.transform.position, HQ2.transform.rotation);
+            spawnedHQ2.SetActive(true);
+        }
+        else
+        {
+            HQ1.SetActive(true);
+            HQ2.SetActive(true);
+        }
+    }
+    */
+
 
     public int submitTroopCost(int cost) // For UI recruitment menu buttons
     {
